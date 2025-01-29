@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Mediaca\Crossposting\Vk\Id;
 
-readonly class AccessTokens
+class AccessTokens
 {
     public function __construct(
-        public string $accessToken,
-        public string $refreshToken,
-        public string $idToken,
-        public string $deviceId,
+        public readonly string $accessToken,
+        public readonly string $refreshToken,
+        public readonly string $idToken,
+        public readonly string $deviceId,
     ) {}
 }

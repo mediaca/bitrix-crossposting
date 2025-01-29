@@ -14,13 +14,13 @@ use Bitrix\Main\Web\Http\Request;
 use Bitrix\Main\Web\Uri;
 use Psr\Http\Client\ClientInterface;
 
-readonly class VkApiClient
+class VkApiClient
 {
     private const BASE_URL = 'https://api.vk.com/method/';
     private const VERSION = '5.199';
 
 
-    public function __construct(public ClientInterface $client, public string $accessToken) {}
+    public function __construct(public readonly ClientInterface $client, public readonly string $accessToken) {}
 
 
     public function wallPost(int $ownerId, bool $fromGroup, ?string $message, ?Attachments $attachments): array
@@ -80,7 +80,7 @@ readonly class VkApiClient
         $response = (string) $this->client->sendRequest($request)->getBody();
 
         $response = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
-        $photo = json_decode($response['photo'], true, 512, JSON_THROW_ON_ERROR);
+        $photo = json_decode((string) $response['photo'], true, 512, JSON_THROW_ON_ERROR);
         if (!$photo) {
             throw new RequestFailException("failed to upload photo $photoPath");
         }

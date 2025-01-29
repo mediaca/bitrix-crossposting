@@ -4,29 +4,9 @@ declare(strict_types=1);
 
 namespace Mediaca\Crossposting\Telegram;
 
-readonly class TextTelegramMessage
+class TextTelegramMessage
 {
-    private const ALLOWED_TAGS = [
-        'b',
-        'strong',
-        'i',
-        'em',
-        'u',
-        'ins',
-        's',
-        'strike',
-        'del',
-        'span',
-        'tg-spoiler',
-        'a',
-        'tg-emoji',
-        'code',
-        'pre',
-        'blockquote',
-    ];
-
-
-    public function __construct(private string $text, private string $endingText = '') {}
+    public function __construct(private readonly string $text, private readonly string $endingText = '') {}
 
 
     public function getText(int $maxLength): string

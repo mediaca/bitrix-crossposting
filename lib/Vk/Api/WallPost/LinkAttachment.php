@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Mediaca\Crossposting\Vk\Api\WallPost;
 
-readonly class LinkAttachment implements Attachment, AdditionParams
+class LinkAttachment implements Attachment, AdditionParams
 {
-    public function __construct(private string $url, private readonly string|null $title = null) {}
+    public function __construct(private readonly string $url, private readonly string|null $title = null) {}
 
 
     public function getRequestValue(): string

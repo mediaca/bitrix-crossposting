@@ -10,20 +10,16 @@ use Bitrix\Main\Web\Http\Request;
 use Bitrix\Main\Web\Uri;
 use Psr\Http\Client\ClientInterface;
 
-readonly class VkIdClient
+class VkIdClient
 {
     private const BASE_URL = 'https://id.vk.com/';
 
 
-    public function __construct(public ClientInterface $client, public int $clientId) {}
+    public function __construct(public readonly ClientInterface $client, public readonly int $clientId) {}
 
 
     /**
      * @param Scope[] $scopes
-     * @param string $redirectUri
-     * @param CodeVerifier $codeVerifier
-     * @param State|null $state
-     * @return string
      */
     public function getAuthorizeUrl(
         array $scopes,

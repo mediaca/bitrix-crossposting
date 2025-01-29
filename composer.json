@@ -4,10 +4,16 @@
   "type": "bitrix-d7-module",
   "license": "MIT",
   "require": {
-    "php": "^8.0"
+    "php": "^8.1"
   },
   "require-dev": {
     "friendsofphp/php-cs-fixer": "^3.68",
     "rector/rector": "^2.0"
+  },
+  "scripts": {
+    "cs-check": "php-cs-fixer check",
+    "cs-fix": "php-cs-fixer fix",
+    "rector-check": "rector --dry-run",
+    "rector-fix": "rector"
   }
 }

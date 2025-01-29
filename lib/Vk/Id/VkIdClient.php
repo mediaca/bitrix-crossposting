@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Mediaca\Crossposting\Vk\Id;
 
-
 use Mediaca\Crossposting\Exception\RequestFailException;
 use Bitrix\Main\Web\Http\FormStream;
 use Bitrix\Main\Web\Http\Request;
 use Bitrix\Main\Web\Uri;
 use Psr\Http\Client\ClientInterface;
-
 
 readonly class VkIdClient
 {
@@ -113,7 +111,7 @@ readonly class VkIdClient
             throw new RequestFailException("The request \"$url\" failed with the status: {$response->getStatusCode()}");
         }
 
-        $content = (string)$response->getBody();
+        $content = (string) $response->getBody();
         $decodedContent = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
         if (array_key_exists('error', $decodedContent)) {
             throw new RequestFailException("The request \"$url\" failed with an error: $content");

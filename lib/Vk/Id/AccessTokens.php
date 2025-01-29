@@ -10,6 +10,6 @@ readonly class AccessTokens
         public string $accessToken,
         public string $refreshToken,
         public string $idToken,
-        public string $deviceId
+        public string $deviceId,
     ) {}
 }

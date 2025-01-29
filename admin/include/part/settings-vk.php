@@ -9,7 +9,6 @@ use Bitrix\Main\Context;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\Web\Uri;
 
-
 /**
  * @global CUser $USER
  * @global CMain $APPLICATION
@@ -65,11 +64,11 @@ if ($vkIdClient) {
     </td>
     <td width="50%" class="adm-detail-content-cell-r"><?php
         $tokensUrl = new Uri($request->getRequestUri());
-        $tokensUrl->addParams(['request-authorization-code' => true]);
-        ?>
+    $tokensUrl->addParams(['request-authorization-code' => true]);
+    ?>
         <a href="<?= $tokensUrl->getUri() ?>"><?= !empty($settings['vk']['accessToken']) ?
-                Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_UPDATE_TOKENS') :
-                Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_GET_TOKENS') ?></a>
+            Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_UPDATE_TOKENS') :
+            Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_GET_TOKENS') ?></a>
     </td>
     </tr><?php
 }

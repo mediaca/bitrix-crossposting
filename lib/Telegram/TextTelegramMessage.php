@@ -6,7 +6,6 @@ namespace Mediaca\Crossposting\Telegram;
 
 readonly class TextTelegramMessage
 {
-
     private const ALLOWED_TAGS = [
         'b',
         'strong',
@@ -54,5 +53,3 @@ readonly class TextTelegramMessage
         );
     }
 }
-
-

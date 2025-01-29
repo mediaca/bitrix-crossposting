@@ -18,7 +18,7 @@ class State
         }
 
         $halfLength = $length / 2;
-        $value = bin2hex(random_bytes((int)$halfLength));
+        $value = bin2hex(random_bytes((int) $halfLength));
 
         $this->value = is_float($halfLength) ? mb_substr($value, 0, -1) : $value;
     }

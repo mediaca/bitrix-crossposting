@@ -15,7 +15,6 @@ use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\Web\HttpClient;
 use Bitrix\Main\Web\Uri;
 
-
 /**
  * @global CUser $USER
  * @global CMain $APPLICATION
@@ -50,10 +49,10 @@ $settings = Configuration::getValue($moduleId);
 
 if ($request->isPost()) {
     $settings['vk']['clientId'] = $request->getPost('vk_client_id') ?
-        (int)$request->getPost('vk_client_id') : null;
+        (int) $request->getPost('vk_client_id') : null;
     $settings['vk']['ownerId'] = $request->getPost('vk_owner_id') ?
-        (int)$request->getPost('vk_owner_id') : null;
-    $settings['vk']['fromGroup'] = (bool)$request->getPost('vk_from_group');
+        (int) $request->getPost('vk_owner_id') : null;
+    $settings['vk']['fromGroup'] = (bool) $request->getPost('vk_from_group');
 
     $settings['telegram']['accessToken'] = $request->getPost('telegram_access_token');
     $settings['telegram']['chatUserName'] = $request->getPost('telegram_chat_user_name');
@@ -71,7 +70,7 @@ if (!empty($_GET['request-authorization-code']) && $vkIdClient) {
         $scopes,
         $redirectUri->getUri(),
         $codeVerifier,
-        null
+        null,
     );
 
     $_SESSION['MEDIACA_CROSSPOSTING_VK_CODE_VERIFIER'] = $codeVerifier->value;
@@ -85,7 +84,7 @@ if (!empty($_GET['request-authorization-code']) && $vkIdClient) {
         $request->get('code'),
         $request->get('device_id'),
         $redirectUri->getUri(),
-        null
+        null,
     );
 
     $tokens = new AccessTokens(
@@ -140,8 +139,8 @@ $tabControl->begin();
             require $tab['file'];
         }
 
-        $tabControl->buttons([]);
-        ?>
+$tabControl->buttons([]);
+?>
     </form>
 <?php
 $tabControl->end();

@@ -6,7 +6,6 @@ namespace Mediaca\Crossposting\Vk\Api\WallPost;
 
 readonly class MediaAttachment implements Attachment
 {
-
     public function __construct(private TypeMediaAttachment $type, private int $ownerId, private int $mediaId) {}
 
 

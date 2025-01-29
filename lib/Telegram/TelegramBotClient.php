@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mediaca\Crossposting\Telegram;
 
-
 use Mediaca\Crossposting\Exception\RequestFailException;
 use Bitrix\Main\IO\File;
 use Bitrix\Main\Web\Http\FormStream;
@@ -14,7 +13,6 @@ use Bitrix\Main\Web\Uri;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
 
-
 class TelegramBotClient
 {
     private const BASE_URL = 'https://api.telegram.org/bot';
@@ -23,7 +21,7 @@ class TelegramBotClient
     public function __construct(
         private readonly ClientInterface $client,
         private readonly string $token,
-        private readonly string $chatUserName
+        private readonly string $chatUserName,
     ) {}
 
 
@@ -37,11 +35,11 @@ class TelegramBotClient
                         'prefer_large_media' => true,
                         'show_above_text'    => true,
                     ],
-                    JSON_THROW_ON_ERROR
+                    JSON_THROW_ON_ERROR,
                 ),
                 'parse_mode'           => 'HTML',
                 'text'                 => $text->getText(4096),
-            ]
+            ],
         );
 
         $request = new Request('POST', new Uri($this->getUrl('sendMessage')), body: $body);
@@ -59,11 +57,11 @@ class TelegramBotClient
     private function sendRequest(RequestInterface $request): array
     {
         $response = $this->client->sendRequest($request);
-        $content = (string)$response->getBody();
+        $content = (string) $response->getBody();
 
         if ($response->getStatusCode() !== 200) {
             throw new RequestFailException(
-                "The request \"{$request->getUri()}\" failed with the status: {$response->getStatusCode()}.\n$content"
+                "The request \"{$request->getUri()}\" failed with the status: {$response->getStatusCode()}.\n$content",
             );
         }
 
@@ -95,7 +93,7 @@ class TelegramBotClient
                 'parse_mode'               => 'HTML',
                 'caption'                  => $caption?->getText(1024),
                 'show_caption_above_media' => 'false',
-            ]
+            ],
         );
 
         $headers = ['Content-type' => 'multipart/form-data; boundary=' . $body->getBoundary()];

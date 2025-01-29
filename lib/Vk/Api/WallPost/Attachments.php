@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mediaca\Crossposting\Vk\Api\WallPost;
 
-
 class Attachments
 {
     private array $values = [];

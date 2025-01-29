@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mediaca\Crossposting\Vk\Api;
 
-
 use Mediaca\Crossposting\Exception\RequestFailException;
 use Mediaca\Crossposting\Exception\UserAuthorizationFailException;
 use Mediaca\Crossposting\Vk\Api\WallPost\Attachments;
@@ -14,7 +13,6 @@ use Bitrix\Main\Web\Http\MultipartStream;
 use Bitrix\Main\Web\Http\Request;
 use Bitrix\Main\Web\Uri;
 use Psr\Http\Client\ClientInterface;
-
 
 readonly class VkApiClient
 {
@@ -76,10 +74,10 @@ readonly class VkApiClient
             'POST',
             new Uri($uploadServerUrl),
             ['Content-type' => 'multipart/form-data; boundary=' . $body->getBoundary()],
-            body: $body
+            body: $body,
         );
 
-        $response = (string)$this->client->sendRequest($request)->getBody();
+        $response = (string) $this->client->sendRequest($request)->getBody();
 
         $response = json_decode($response, true, 512, JSON_THROW_ON_ERROR);
         $photo = json_decode($response['photo'], true, 512, JSON_THROW_ON_ERROR);
@@ -132,11 +130,11 @@ readonly class VkApiClient
         $response = $this->client->sendRequest($request);
         if ($response->getStatusCode() !== 200) {
             throw new RequestFailException(
-                "The action \"$action\" failed with the status: {$response->getStatusCode()}"
+                "The action \"$action\" failed with the status: {$response->getStatusCode()}",
             );
         }
 
-        $content = (string)$response->getBody();
+        $content = (string) $response->getBody();
         $decodedContent = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
         if (array_key_exists('error', $decodedContent)) {
             $message = "The action \"$action\" failed with an error: $content";

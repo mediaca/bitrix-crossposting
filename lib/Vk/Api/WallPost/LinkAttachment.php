@@ -1,0 +1,23 @@
+<?php
+
+declare(strict_types=1);
+
+namespace ALS\Crossposting\Vk\Api\WallPost;
+
+readonly class LinkAttachment implements Attachment, AdditionParams
+{
+
+    public function __construct(private string $url, private readonly string|null $title = null) {}
+
+
+    public function getRequestValue(): string
+    {
+        return $this->url;
+    }
+
+
+    public function getAdditionParams(): array
+    {
+        return $this->title ? ['link_title' => $this->title] : [];
+    }
+}

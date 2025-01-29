@@ -1,0 +1,117 @@
+<?php
+
+declare(strict_types=1);
+
+
+use ALS\Crossposting\Vk\Id\VkIdClient;
+use Bitrix\Main\Config\Option;
+use Bitrix\Main\Context;
+use Bitrix\Main\Localization\Loc;
+use Bitrix\Main\Web\Uri;
+
+
+/**
+ * @global CUser $USER
+ * @global CMain $APPLICATION
+ * @global array $settings
+ * @global VkIdClient|null $vkIdClient
+ * @global \Bitrix\Main\HttpRequest $request
+ */
+
+if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
+    exit;
+}
+
+$request = Context::getCurrent()->getRequest();
+$server = Context::getCurrent()->getServer();
+
+$domain = Option::get('main', 'server_name');
+$domain = ($request->isHttps() ? 'https://' : 'http://') . ($domain ?: $server->getServerName());
+
+?>
+<tr>
+    <td width="50%" class="adm-detail-content-cell-l">
+        <?= Loc::getMessage('ALS_CROSSPOSTING_SETTINGS_VK_CLIENT_ID') ?>:
+    </td>
+    <td width="50%" class="adm-detail-content-cell-r">
+        <input type="text" name="vk_client_id" size="10" autocomplete="off"
+               value="<?= ($settings['vk']['clientId'] ?? '') ?>"/>
+    </td>
+</tr>
+<tr>
+    <td width="50%" class="adm-detail-content-cell-l">
+        <?= Loc::getMessage('ALS_CROSSPOSTING_SETTINGS_VK_OWNER_ID') ?>:
+    </td>
+    <td width="50%" class="adm-detail-content-cell-r">
+        <input type="text" name="vk_owner_id" size="10" autocomplete="off"
+               value="<?= ($settings['vk']['ownerId'] ?? '') ?>"/>
+    </td>
+</tr>
+<tr>
+    <td width="50%" class="adm-detail-content-cell-l">
+        <?= Loc::getMessage('ALS_CROSSPOSTING_SETTINGS_VK_FROM_GROUP') ?>:
+    </td>
+    <td width="50%" class="adm-detail-content-cell-r">
+        <input type="checkbox" name="vk_from_group"<?= (!empty($settings['vk']['fromGroup']) ? ' checked' : '') ?>/>
+    </td>
+</tr>
+
+
+<?php
+if ($vkIdClient) {
+    ?>
+    <tr>
+    <td width="50%" class="adm-detail-content-cell-l"
+    </td>
+    <td width="50%" class="adm-detail-content-cell-r"><?php
+        $tokensUrl = new Uri($request->getRequestUri());
+        $tokensUrl->addParams(['request-authorization-code' => true]);
+        ?>
+        <a href="<?= $tokensUrl->getUri() ?>"><?= !empty($settings['vk']['accessToken']) ?
+                Loc::getMessage('ALS_CROSSPOSTING_SETTINGS_VK_UPDATE_TOKENS') :
+                Loc::getMessage('ALS_CROSSPOSTING_SETTINGS_VK_GET_TOKENS') ?></a>
+    </td>
+    </tr><?php
+}
+?>
+<tr>
+    <td width="50%" class="adm-detail-content-cell-l">
+        <?= Loc::getMessage('ALS_CROSSPOSTING_SETTINGS_VK_ACCESS_TOKEN') ?>:
+    </td>
+    <td width="50%" class="adm-detail-content-cell-r">
+        <input type="text" size="40" disabled
+               value="<?= htmlspecialchars($settings['vk']['accessToken'] ?? '') ?>"/>
+    </td>
+</tr>
+<tr>
+    <td width="50%" class="adm-detail-content-cell-l">
+        <?= Loc::getMessage('ALS_CROSSPOSTING_SETTINGS_VK_REFRESH_TOKEN') ?>:
+    </td>
+    <td width="50%" class="adm-detail-content-cell-r">
+        <input type="text" size="40" disabled
+               value="<?= htmlspecialchars($settings['vk']['refreshToken'] ?? '') ?>"/>
+    </td>
+</tr>
+<tr>
+    <td width="50%" class="adm-detail-content-cell-l">
+        <?= Loc::getMessage('ALS_CROSSPOSTING_SETTINGS_VK_ID_TOKEN') ?>:
+    </td>
+    <td width="50%" class="adm-detail-content-cell-r">
+        <input type="text" size="40" disabled
+               value="<?= htmlspecialchars($settings['vk']['idToken'] ?? '') ?>"/>
+    </td>
+</tr>
+<tr>
+    <td width="50%" class="adm-detail-content-cell-l">
+        <?= Loc::getMessage('ALS_CROSSPOSTING_SETTINGS_VK_DEVICE_ID') ?>:
+    </td>
+    <td width="50%" class="adm-detail-content-cell-r">
+        <input type="text" size="40" disabled
+               value="<?= htmlspecialchars($settings['vk']['deviceId'] ?? '') ?>"/>
+    </td>
+</tr>
+<tr>
+    <td colspan="2">
+        <?= Loc::getMessage('ALS_CROSSPOSTING_SETTINGS_VK_INSTRUCTION', ['#DOMAIN#' => $domain]) ?>
+    </td>
+</tr>

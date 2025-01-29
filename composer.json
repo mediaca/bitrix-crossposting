@@ -1,0 +1,13 @@
+{
+  "name": "mediaca/bitrix-crossposting",
+  "description": "Модуль кросспостинга для Битрикса, выполняет автоматический постинг в Телеграм и ВКонтакте.",
+  "type": "bitrix-d7-module",
+  "license": "MIT",
+  "require": {
+    "php": "^8.0"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^3.68",
+    "rector/rector": "^2.0"
+  }
+}

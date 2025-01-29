@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ALS\Crossposting\Vk\Id;
+namespace Mediaca\Crossposting\Vk\Id;
 
 readonly class AccessTokens
 {

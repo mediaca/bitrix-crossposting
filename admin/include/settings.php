@@ -3,10 +3,10 @@
 declare(strict_types=1);
 
 
-use ALS\Crossposting\Vk\Id\AccessTokens;
-use ALS\Crossposting\Vk\Id\CodeVerifier;
-use ALS\Crossposting\Vk\Id\Scope;
-use ALS\Crossposting\Vk\Id\VkIdClient;
+use Mediaca\Crossposting\Vk\Id\AccessTokens;
+use Mediaca\Crossposting\Vk\Id\CodeVerifier;
+use Mediaca\Crossposting\Vk\Id\Scope;
+use Mediaca\Crossposting\Vk\Id\VkIdClient;
 use Bitrix\Main\Config\Configuration;
 use Bitrix\Main\Config\Option;
 use Bitrix\Main\Context;
@@ -29,14 +29,14 @@ if (!$USER->IsAdmin()) {
     $APPLICATION->AuthForm(GetMessage('ACCESS_DENIED'));
 }
 
-$moduleId = 'als.crossposting';
+$moduleId = 'mediaca.crossposting';
 
 Loc::loadMessages(__FILE__);
 Loader::requireModule($moduleId);
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/bitrix/modules/main/include/prolog_admin_after.php');
 
-$APPLICATION->SetTitle(Loc::getMessage('ALS_CROSSPOSTING_SETTINGS_TITLE'));
+$APPLICATION->SetTitle(Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_TITLE'));
 
 $server = Context::getCurrent()->getServer();
 $request = Context::getCurrent()->getRequest();
@@ -74,14 +74,14 @@ if (!empty($_GET['request-authorization-code']) && $vkIdClient) {
         null
     );
 
-    $_SESSION['ALS_CROSSPOSTING_VK_CODE_VERIFIER'] = $codeVerifier->value;
+    $_SESSION['MEDIACA_CROSSPOSTING_VK_CODE_VERIFIER'] = $codeVerifier->value;
 
     LocalRedirect($vkAuthorizeUrl, true);
 } elseif (
     $vkIdClient && $request->get('code') && $request->get('device_id')
-    && $_SESSION['ALS_CROSSPOSTING_VK_CODE_VERIFIER']) {
+    && $_SESSION['MEDIACA_CROSSPOSTING_VK_CODE_VERIFIER']) {
     $response = $vkIdClient->getAccessToken(
-        $_SESSION['ALS_CROSSPOSTING_VK_CODE_VERIFIER'],
+        $_SESSION['MEDIACA_CROSSPOSTING_VK_CODE_VERIFIER'],
         $request->get('code'),
         $request->get('device_id'),
         $redirectUri->getUri(),
@@ -110,15 +110,15 @@ if (!empty($_GET['request-authorization-code']) && $vkIdClient) {
 
 $tabs = [
     [
-        'DIV'   => 'als_crossposting_settings_vk',
-        'TAB'   => Loc::getMessage('ALS_CROSSPOSTING_SETTINGS_VK_TITLE'),
-        'TITLE' => Loc::getMessage('ALS_CROSSPOSTING_SETTINGS_VK_TITLE'),
+        'DIV'   => 'mediaca_crossposting_settings_vk',
+        'TAB'   => Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_TITLE'),
+        'TITLE' => Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_TITLE'),
         'file'  => __DIR__ . '/part/settings-vk.php',
     ],
     [
-        'DIV'   => 'als_crossposting_settings_telegram',
-        'TAB'   => Loc::getMessage('ALS_CROSSPOSTING_SETTINGS_TELEGRAM_TITLE'),
-        'TITLE' => Loc::getMessage('ALS_CROSSPOSTING_SETTINGS_TELEGRAM_TITLE'),
+        'DIV'   => 'mediaca_crossposting_settings_telegram',
+        'TAB'   => Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_TELEGRAM_TITLE'),
+        'TITLE' => Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_TELEGRAM_TITLE'),
         'file'  => __DIR__ . '/part/settings-telegram.php',
     ],
 ];

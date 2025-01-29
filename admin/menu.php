@@ -20,9 +20,9 @@ if ($USER->IsAdmin()) {
     $menuLinks = [
         'parent_menu' => 'global_menu_settings',
         'sort'        => 10,
-        'text'        => Loc::getMessage('ALS_CROSSPOSTING_MENU_SETTINGS_TITLE'),
-        'items_id'    => 'als.crossposting',
-        'url'         => 'als-crossposting-settings.php?lang=' . LANGUAGE_ID,
+        'text'        => Loc::getMessage('MEDIACA_CROSSPOSTING_MENU_SETTINGS_TITLE'),
+        'items_id'    => 'mediaca.crossposting',
+        'url'         => 'mediaca-crossposting-settings.php?lang=' . LANGUAGE_ID,
     ];
 }
 

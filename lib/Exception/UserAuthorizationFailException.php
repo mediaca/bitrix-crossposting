@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ALS\Crossposting\Exception;
+namespace Mediaca\Crossposting\Exception;
 
 class UserAuthorizationFailException extends RequestFailException
 {

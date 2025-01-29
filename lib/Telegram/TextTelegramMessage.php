@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ALS\Crossposting\Telegram;
+namespace Mediaca\Crossposting\Telegram;
 
 readonly class TextTelegramMessage
 {

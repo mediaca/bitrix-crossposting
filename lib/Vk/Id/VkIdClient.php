@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace ALS\Crossposting\Vk\Id;
+namespace Mediaca\Crossposting\Vk\Id;
 
 
-use ALS\Crossposting\Exception\RequestFailException;
+use Mediaca\Crossposting\Exception\RequestFailException;
 use Bitrix\Main\Web\Http\FormStream;
 use Bitrix\Main\Web\Http\Request;
 use Bitrix\Main\Web\Uri;

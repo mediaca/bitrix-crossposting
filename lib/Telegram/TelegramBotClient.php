@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace ALS\Crossposting\Telegram;
+namespace Mediaca\Crossposting\Telegram;
 
 
-use ALS\Crossposting\Exception\RequestFailException;
+use Mediaca\Crossposting\Exception\RequestFailException;
 use Bitrix\Main\IO\File;
 use Bitrix\Main\Web\Http\FormStream;
 use Bitrix\Main\Web\Http\MultipartStream;

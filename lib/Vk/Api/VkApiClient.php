@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace ALS\Crossposting\Vk\Api;
+namespace Mediaca\Crossposting\Vk\Api;
 
 
-use ALS\Crossposting\Exception\RequestFailException;
-use ALS\Crossposting\Exception\UserAuthorizationFailException;
-use ALS\Crossposting\Vk\Api\WallPost\Attachments;
+use Mediaca\Crossposting\Exception\RequestFailException;
+use Mediaca\Crossposting\Exception\UserAuthorizationFailException;
+use Mediaca\Crossposting\Vk\Api\WallPost\Attachments;
 use Bitrix\Main\IO\File;
 use Bitrix\Main\Web\Http\FormStream;
 use Bitrix\Main\Web\Http\MultipartStream;

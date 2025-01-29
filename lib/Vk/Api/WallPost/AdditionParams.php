@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ALS\Crossposting\Vk\Api\WallPost;
+namespace Mediaca\Crossposting\Vk\Api\WallPost;
 
 interface AdditionParams
 {

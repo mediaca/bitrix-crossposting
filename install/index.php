@@ -9,9 +9,9 @@ use Bitrix\Main\ModuleManager;
 Loc::loadMessages(__FILE__);
 
 
-class als_crossposting extends CModule
+class mediaca_crossposting extends CModule
 {
-    public $MODULE_ID = 'als.crossposting';
+    public $MODULE_ID = 'mediaca.crossposting';
     public $MODULE_GROUP_RIGHTS = 'N';
     public $MODULE_NAME;
     public $MODULE_DESCRIPTION;
@@ -25,9 +25,9 @@ class als_crossposting extends CModule
 
     public function __construct()
     {
-        $this->MODULE_NAME = Loc::getMessage('ALS_CROSSPOSTING_NAME');
-        $this->MODULE_DESCRIPTION = Loc::getMessage('ALS_CROSSPOSTING_DESCRIPTION');
-        $this->PARTNER_NAME = Loc::getMessage('ALS_CROSSPOSTING_PARTNER_NAME');
+        $this->MODULE_NAME = Loc::getMessage('MEDIACA_CROSSPOSTING_NAME');
+        $this->MODULE_DESCRIPTION = Loc::getMessage('MEDIACA_CROSSPOSTING_DESCRIPTION');
+        $this->PARTNER_NAME = Loc::getMessage('MEDIACA_CROSSPOSTING_PARTNER_NAME');
         $this->PARTNER_URI = 'https://www.artlebedev.ru/';
 
         require(__DIR__ . '/version.php');

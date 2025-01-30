@@ -13,6 +13,8 @@ $MESS['MEDIACA_CROSSPOSTING_SETTINGS_VK_DEVICE_ID'] = 'Идентификато�
 $MESS['MEDIACA_CROSSPOSTING_SETTINGS_VK_GET_TOKENS'] = 'Получить токены ВКонтакте';
 $MESS['MEDIACA_CROSSPOSTING_SETTINGS_VK_UPDATE_TOKENS'] = 'Обновить токены';
 $MESS['MEDIACA_CROSSPOSTING_SETTINGS_VK_MESSAGE_TEMPLATE'] = 'Шаблон сообщения';
+$MESS['MEDIACA_CROSSPOSTING_SETTINGS_VK_DATA_PHOTOS'] = 'Список полей/свойств для выбора фотографии';
+$MESS['MEDIACA_CROSSPOSTING_SETTINGS_VK_USE_ALL_PHOTOS'] = 'Отправлять все фотографии';
 $MESS['MEDIACA_CROSSPOSTING_SETTINGS_VK_INSTRUCTION'] = '
 <p>Действия необходимо выполнять под аккаунтом администратора сообщества ВКонтакте.</p>
 <h2>Создание приложения и получение его идентификатора</h2>
@@ -42,6 +44,7 @@ $MESS['MEDIACA_CROSSPOSTING_SETTINGS_TELEGRAM_TITLE'] = 'Телеграм';
 $MESS['MEDIACA_CROSSPOSTING_SETTINGS_TELEGRAM_ACCESS_TOKEN'] = 'Токен доступа бота ';
 $MESS['MEDIACA_CROSSPOSTING_SETTINGS_TELEGRAM_CHAT_USER_NAME'] = 'Юзернейм чата (с начальным @)';
 $MESS['MEDIACA_CROSSPOSTING_SETTINGS_TELEGRAM_MESSAGE_TEMPLATE'] = 'Шаблон сообщения';
+$MESS['MEDIACA_CROSSPOSTING_SETTINGS_TELEGRAM_DATA_PHOTOS'] = 'Список полей/свойств для выбора фотографии';
 $MESS['MEDIACA_CROSSPOSTING_SETTINGS_TELEGRAM_INSTRUCTION'] = '
 <h2>Создание бота и получение токена доступа</h2>
 <p>Для создания бота необходимо обратиться в Телеграм к боту <a href="https://t.me/botfather">@BotFather</a>, 

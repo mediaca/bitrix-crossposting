@@ -119,6 +119,25 @@ if ($vkIdClient) {
     </td>
 </tr>
 <tr>
+    <td width="50%" class="adm-detail-content-cell-l">
+        <?= Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_DATA_PHOTOS') ?>:
+    </td>
+    <td width="50%" class="adm-detail-content-cell-r">
+        <input type="text" name="vk_data_photos" size="40" autocomplete="off"
+               value="<?= htmlspecialchars(!empty($config['vk']['dataPhotos']) ?
+                   implode(',', $config['vk']['dataPhotos']) : '') ?>">
+    </td>
+</tr>
+<tr>
+    <td width="50%" class="adm-detail-content-cell-l">
+        <?= Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_USE_ALL_PHOTOS') ?>:
+    </td>
+    <td width="50%" class="adm-detail-content-cell-r">
+        <input type="checkbox" name="vk_use_all_photos"
+            <?= (!empty($config['vk']['useAllPhotos']) ? ' checked' : '') ?>/>
+    </td>
+</tr>
+<tr>
     <td colspan="2">
         <?= Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_INSTRUCTION', ['#DOMAIN#' => $domain]) ?>
     </td>

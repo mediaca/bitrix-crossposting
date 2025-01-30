@@ -41,6 +41,17 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
     </td>
 </tr>
 <tr>
+    <td width="50%" class="adm-detail-content-cell-l">
+        <?= Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_TELEGRAM_DATA_PHOTOS') ?>:
+    </td>
+    <td width="50%" class="adm-detail-content-cell-r">
+        <input type="text" name="telegram_data_photos" size="40" autocomplete="off"
+               value="<?= htmlspecialchars(!empty($config['telegram']['dataPhotos']) ?
+                   implode(',', $config['telegram']['dataPhotos']) : '') ?>"
+               ?>
+    </td>
+</tr>
+<tr>
     <td colspan="2">
         <?= Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_TELEGRAM_INSTRUCTION') ?>
     </td>

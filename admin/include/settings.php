@@ -53,10 +53,13 @@ if ($request->isPost()) {
     $config['vk']['ownerId'] = $request->getPost('vk_owner_id') ?
         (int) $request->getPost('vk_owner_id') : null;
     $config['vk']['fromGroup'] = (bool) $request->getPost('vk_from_group');
+    $config['vk']['dataPhotos'] = array_map('trim', explode(',', $request->getPost('vk_data_photos')));
+    $config['vk']['useAllPhotos'] = (bool) $request->getPost('vk_use_all_photos');
 
     $config['telegram']['accessToken'] = $request->getPost('telegram_access_token');
     $config['telegram']['chatUserName'] = $request->getPost('telegram_chat_user_name');
     $config['telegram']['messageTemplate'] = $request->getPost('telegram_message_template');
+    $config['telegram']['dataPhotos'] = array_map('trim', explode(',', $request->getPost('telegram_data_photos')));
 
     Configuration::setValue($moduleId, $config);
 }

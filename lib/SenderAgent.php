@@ -31,6 +31,7 @@ class SenderAgent
                 'ACTIVE' => 'Y',
             ];
 
+            // @todo Обновление отправителя ВК при истекшем сроке токена доступа
             // @todo решить, что делать если не найден элемент
             $element = $gateway->getElement($dataCodes, $filter);
             $photos = self::getFiles($element, $senderFactory->getDataPhotos());

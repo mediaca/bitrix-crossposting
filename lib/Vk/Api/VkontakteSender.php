@@ -30,10 +30,14 @@ class VkontakteSender implements Sender
             (str_starts_with('/', $data['DETAIL_PAGE_URL']) ? $this->server->getDomain() : '') . $data['DETAIL_PAGE_URL'],
         ));
 
-        if ($photos) {
+        if (empty($this->config['useAllPhotos']) && count($photos) > 1) {
+            $photos = array_slice($photos, 0, 1);
+        }
+
+        foreach ($photos as $photo) {
             $photo = $this->client->uploadWallPhotoAndSave(
                 $this->config['ownerId'],
-                $this->server->getDocumentRoot() . $photos[0]['src'],
+                $this->server->getDocumentRoot() . $photo['SRC'],
             );
 
             $attachments->addAttachment(

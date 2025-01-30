@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Mediaca\Crossposting\Template;
 
-class Template
+class TemplateParser
 {
     private array $matches;
     private array $data;
@@ -33,6 +33,6 @@ class Template
 
     public function getData(): array
     {
-        return array_merge(...$this->data);
+        return array_values(array_unique(array_merge(...$this->data)));
     }
 }

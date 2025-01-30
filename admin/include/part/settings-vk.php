@@ -110,6 +110,15 @@ if ($vkIdClient) {
     </td>
 </tr>
 <tr>
+    <td width="50%" class="adm-detail-content-cell-l">
+        <?= Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_MESSAGE_TEMPLATE') ?>:
+    </td>
+    <td width="50%" class="adm-detail-content-cell-r">
+        <textarea name="vk_message_template" autocomplete="off" rows="5"
+                  cols="42"><?= htmlspecialchars($settings['vk']['messageTemplate'] ?? '') ?></textarea>
+    </td>
+</tr>
+<tr>
     <td colspan="2">
         <?= Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_INSTRUCTION', ['#DOMAIN#' => $domain]) ?>
     </td>

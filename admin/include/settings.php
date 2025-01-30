@@ -56,6 +56,7 @@ if ($request->isPost()) {
 
     $settings['telegram']['accessToken'] = $request->getPost('telegram_access_token');
     $settings['telegram']['chatUserName'] = $request->getPost('telegram_chat_user_name');
+    $settings['telegram']['messageTemplate'] = $request->getPost('telegram_message_template');
 
     Configuration::setValue($moduleId, $settings);
 }
@@ -102,7 +103,7 @@ if (!empty($_GET['request-authorization-code']) && $vkIdClient) {
     Configuration::setValue($moduleId, $settings);
 
     $successUri = new Uri($domain . $request->getRequestUri());
-    $successUri->deleteParams(['code', 'device_id', 'expires_in','ext_id', 'state', 'type']);
+    $successUri->deleteParams(['code', 'device_id', 'expires_in', 'ext_id', 'state', 'type']);
 
     LocalRedirect($successUri->getUri(), true);
 }

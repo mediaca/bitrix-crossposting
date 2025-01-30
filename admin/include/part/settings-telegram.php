@@ -32,6 +32,15 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
     </td>
 </tr>
 <tr>
+    <td width="50%" class="adm-detail-content-cell-l">
+        <?= Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_TELEGRAM_MESSAGE_TEMPLATE') ?>:
+    </td>
+    <td width="50%" class="adm-detail-content-cell-r">
+        <textarea name="telegram_message_template" autocomplete="off" rows="5"
+                  cols="42"><?= htmlspecialchars($settings['telegram']['messageTemplate'] ?? '') ?></textarea>
+    </td>
+</tr>
+<tr>
     <td colspan="2">
         <?= Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_TELEGRAM_INSTRUCTION') ?>
     </td>

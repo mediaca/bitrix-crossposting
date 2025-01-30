@@ -45,24 +45,24 @@ $domain = ($request->isHttps() ? 'https://' : 'http://') . ($domain ?: $server->
 $redirectUri = new Uri($domain . $request->getRequestUri());
 $redirectUri->deleteParams(['lang', 'request-authorization-code']);
 
-$settings = Configuration::getValue($moduleId);
+$config = Configuration::getValue($moduleId);
 
 if ($request->isPost()) {
-    $settings['vk']['clientId'] = $request->getPost('vk_client_id') ?
+    $config['vk']['clientId'] = $request->getPost('vk_client_id') ?
         (int) $request->getPost('vk_client_id') : null;
-    $settings['vk']['ownerId'] = $request->getPost('vk_owner_id') ?
+    $config['vk']['ownerId'] = $request->getPost('vk_owner_id') ?
         (int) $request->getPost('vk_owner_id') : null;
-    $settings['vk']['fromGroup'] = (bool) $request->getPost('vk_from_group');
+    $config['vk']['fromGroup'] = (bool) $request->getPost('vk_from_group');
 
-    $settings['telegram']['accessToken'] = $request->getPost('telegram_access_token');
-    $settings['telegram']['chatUserName'] = $request->getPost('telegram_chat_user_name');
-    $settings['telegram']['messageTemplate'] = $request->getPost('telegram_message_template');
+    $config['telegram']['accessToken'] = $request->getPost('telegram_access_token');
+    $config['telegram']['chatUserName'] = $request->getPost('telegram_chat_user_name');
+    $config['telegram']['messageTemplate'] = $request->getPost('telegram_message_template');
 
-    Configuration::setValue($moduleId, $settings);
+    Configuration::setValue($moduleId, $config);
 }
 
-$vkIdClient = !empty($settings['vk']['clientId']) ?
-    new VkIdClient(new HttpClient(), $settings['vk']['clientId']) : null;
+$vkIdClient = !empty($config['vk']['clientId']) ?
+    new VkIdClient(new HttpClient(), $config['vk']['clientId']) : null;
 
 if (!empty($_GET['request-authorization-code']) && $vkIdClient) {
     $scopes = [Scope::WALL, Scope::PHOTOS];
@@ -95,12 +95,12 @@ if (!empty($_GET['request-authorization-code']) && $vkIdClient) {
         $request->get('device_id'),
     );
 
-    $settings['vk']['accessToken'] = $tokens->accessToken;
-    $settings['vk']['refreshToken'] = $tokens->refreshToken;
-    $settings['vk']['idToken'] = $tokens->idToken;
-    $settings['vk']['deviceId'] = $tokens->deviceId;
+    $config['vk']['accessToken'] = $tokens->accessToken;
+    $config['vk']['refreshToken'] = $tokens->refreshToken;
+    $config['vk']['idToken'] = $tokens->idToken;
+    $config['vk']['deviceId'] = $tokens->deviceId;
 
-    Configuration::setValue($moduleId, $settings);
+    Configuration::setValue($moduleId, $config);
 
     $successUri = new Uri($domain . $request->getRequestUri());
     $successUri->deleteParams(['code', 'device_id', 'expires_in', 'ext_id', 'state', 'type']);

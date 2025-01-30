@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mediaca\Crossposting\Vk\Api;
 
+use Mediaca\Crossposting\Server;
 use Mediaca\Crossposting\Template\TemplateParser;
 use Mediaca\Crossposting\Vk\Api\WallPost\Attachments;
 use Mediaca\Crossposting\Vk\Api\WallPost\LinkAttachment;
@@ -15,9 +16,8 @@ class VkontakteSender
     public function __construct(
         private readonly VkontakteApiClient $client,
         private readonly TemplateParser $parser,
-        private readonly array $settings,
-        private readonly string $domain,
-        private readonly string $documentRoot,
+        private readonly Server $server,
+        private readonly array $config,
     ) {}
 
     public function send(array $data, ?array $photo): void
@@ -26,13 +26,13 @@ class VkontakteSender
 
         $attachments = new Attachments();
         $attachments->addAttachment(new LinkAttachment(
-            (str_starts_with('/', $data['DETAIL_PAGE_URL']) ? $this->domain : '') . $data['DETAIL_PAGE_URL'],
+            (str_starts_with('/', $data['DETAIL_PAGE_URL']) ? $this->server->getDomain() : '') . $data['DETAIL_PAGE_URL'],
         ));
 
         if ($photo) {
             $photo = $this->client->uploadWallPhotoAndSave(
-                $this->settings['ownerId'],
-                $this->documentRoot . $photo['src'],
+                $this->config['ownerId'],
+                $this->server->getDocumentRoot() . $photo['src'],
             );
 
             $attachments->addAttachment(
@@ -41,8 +41,8 @@ class VkontakteSender
         }
 
         $this->client->wallPost(
-            $this->settings['ownerId'],
-            $this->settings['fromGroup'] ?? false,
+            $this->config['ownerId'],
+            $this->config['fromGroup'] ?? false,
             $message,
             $attachments,
         );

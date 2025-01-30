@@ -12,7 +12,7 @@ use Bitrix\Main\Web\Uri;
 /**
  * @global CUser $USER
  * @global CMain $APPLICATION
- * @global array $settings
+ * @global array $config
  * @global VkIdClient|null $vkIdClient
  * @global \Bitrix\Main\HttpRequest $request
  */
@@ -34,7 +34,7 @@ $domain = ($request->isHttps() ? 'https://' : 'http://') . ($domain ?: $server->
     </td>
     <td width="50%" class="adm-detail-content-cell-r">
         <input type="text" name="vk_client_id" size="10" autocomplete="off"
-               value="<?= ($settings['vk']['clientId'] ?? '') ?>"/>
+               value="<?= ($config['vk']['clientId'] ?? '') ?>"/>
     </td>
 </tr>
 <tr>
@@ -43,7 +43,7 @@ $domain = ($request->isHttps() ? 'https://' : 'http://') . ($domain ?: $server->
     </td>
     <td width="50%" class="adm-detail-content-cell-r">
         <input type="text" name="vk_owner_id" size="10" autocomplete="off"
-               value="<?= ($settings['vk']['ownerId'] ?? '') ?>"/>
+               value="<?= ($config['vk']['ownerId'] ?? '') ?>"/>
     </td>
 </tr>
 <tr>
@@ -51,7 +51,7 @@ $domain = ($request->isHttps() ? 'https://' : 'http://') . ($domain ?: $server->
         <?= Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_FROM_GROUP') ?>:
     </td>
     <td width="50%" class="adm-detail-content-cell-r">
-        <input type="checkbox" name="vk_from_group"<?= (!empty($settings['vk']['fromGroup']) ? ' checked' : '') ?>/>
+        <input type="checkbox" name="vk_from_group"<?= (!empty($config['vk']['fromGroup']) ? ' checked' : '') ?>/>
     </td>
 </tr>
 
@@ -66,7 +66,7 @@ if ($vkIdClient) {
         $tokensUrl = new Uri($request->getRequestUri());
     $tokensUrl->addParams(['request-authorization-code' => true]);
     ?>
-        <a href="<?= $tokensUrl->getUri() ?>"><?= !empty($settings['vk']['accessToken']) ?
+        <a href="<?= $tokensUrl->getUri() ?>"><?= !empty($config['vk']['accessToken']) ?
             Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_UPDATE_TOKENS') :
             Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_GET_TOKENS') ?></a>
     </td>
@@ -79,7 +79,7 @@ if ($vkIdClient) {
     </td>
     <td width="50%" class="adm-detail-content-cell-r">
         <input type="text" size="40" disabled
-               value="<?= htmlspecialchars($settings['vk']['accessToken'] ?? '') ?>"/>
+               value="<?= htmlspecialchars($config['vk']['accessToken'] ?? '') ?>"/>
     </td>
 </tr>
 <tr>
@@ -88,7 +88,7 @@ if ($vkIdClient) {
     </td>
     <td width="50%" class="adm-detail-content-cell-r">
         <input type="text" size="40" disabled
-               value="<?= htmlspecialchars($settings['vk']['refreshToken'] ?? '') ?>"/>
+               value="<?= htmlspecialchars($config['vk']['refreshToken'] ?? '') ?>"/>
     </td>
 </tr>
 <tr>
@@ -97,7 +97,7 @@ if ($vkIdClient) {
     </td>
     <td width="50%" class="adm-detail-content-cell-r">
         <input type="text" size="40" disabled
-               value="<?= htmlspecialchars($settings['vk']['idToken'] ?? '') ?>"/>
+               value="<?= htmlspecialchars($config['vk']['idToken'] ?? '') ?>"/>
     </td>
 </tr>
 <tr>
@@ -106,7 +106,7 @@ if ($vkIdClient) {
     </td>
     <td width="50%" class="adm-detail-content-cell-r">
         <input type="text" size="40" disabled
-               value="<?= htmlspecialchars($settings['vk']['deviceId'] ?? '') ?>"/>
+               value="<?= htmlspecialchars($config['vk']['deviceId'] ?? '') ?>"/>
     </td>
 </tr>
 <tr>
@@ -115,7 +115,7 @@ if ($vkIdClient) {
     </td>
     <td width="50%" class="adm-detail-content-cell-r">
         <textarea name="vk_message_template" autocomplete="off" rows="5"
-                  cols="42"><?= htmlspecialchars($settings['vk']['messageTemplate'] ?? '') ?></textarea>
+                  cols="42"><?= htmlspecialchars($config['vk']['messageTemplate'] ?? '') ?></textarea>
     </td>
 </tr>
 <tr>

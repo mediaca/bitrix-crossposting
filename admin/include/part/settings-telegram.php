@@ -6,7 +6,7 @@ declare(strict_types=1);
 use Bitrix\Main\Localization\Loc;
 
 /**
- * @global array $settings
+ * @global array $config
  */
 
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
@@ -19,7 +19,7 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
     </td>
     <td width="50%" class="adm-detail-content-cell-r">
         <input type="text" name="telegram_access_token" size="40" autocomplete="off"
-               value="<?= ($settings['telegram']['accessToken'] ?? '') ?>"/>
+               value="<?= ($config['telegram']['accessToken'] ?? '') ?>"/>
     </td>
 </tr>
 <tr>
@@ -28,7 +28,7 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
     </td>
     <td width="50%" class="adm-detail-content-cell-r">
         <input type="text" name="telegram_chat_user_name" size="20" autocomplete="off"
-               value="<?= ($settings['telegram']['chatUserName'] ?? '') ?>"/>
+               value="<?= ($config['telegram']['chatUserName'] ?? '') ?>"/>
     </td>
 </tr>
 <tr>
@@ -37,7 +37,7 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
     </td>
     <td width="50%" class="adm-detail-content-cell-r">
         <textarea name="telegram_message_template" autocomplete="off" rows="5"
-                  cols="42"><?= htmlspecialchars($settings['telegram']['messageTemplate'] ?? '') ?></textarea>
+                  cols="42"><?= htmlspecialchars($config['telegram']['messageTemplate'] ?? '') ?></textarea>
     </td>
 </tr>
 <tr>

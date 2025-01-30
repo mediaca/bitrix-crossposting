@@ -9,7 +9,7 @@ use Mediaca\Crossposting\Template\TemplateParser;
 class TelegramSender
 {
     public function __construct(
-        private readonly TemplateParser $templateParser,
+        private readonly TemplateParser $parser,
         private readonly TelegramBotClient $client,
         private readonly string $domain,
         private readonly string $documentRoot,
@@ -17,7 +17,7 @@ class TelegramSender
 
     private function send(array $data, ?array $photo): void
     {
-        $message = $this->templateParser->build($data);
+        $message = $this->parser->build($data);
         $url = (str_starts_with('/', $data['DETAIL_PAGE_URL']) ? $this->domain : '') . $data['DETAIL_PAGE_URL'];
 
         $text = new TextTelegramMessage($message, "\n\n$url");

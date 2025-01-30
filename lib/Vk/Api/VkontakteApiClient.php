@@ -14,7 +14,7 @@ use Bitrix\Main\Web\Http\Request;
 use Bitrix\Main\Web\Uri;
 use Psr\Http\Client\ClientInterface;
 
-class VkApiClient
+class VkontakteApiClient
 {
     private const BASE_URL = 'https://api.vk.com/method/';
     private const VERSION = '5.199';

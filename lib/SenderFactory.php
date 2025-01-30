@@ -13,8 +13,9 @@ use Mediaca\Crossposting\Vk\Api\VkontakteSender;
 
 class SenderFactory
 {
-    private TemplateParser $parser;
-    private Sender $sender;
+    private readonly TemplateParser $parser;
+    private readonly Sender $sender;
+    private readonly array $dataPhotos;
 
     public function __construct(
         Channel $channel,
@@ -36,9 +37,11 @@ class SenderFactory
         if ($client instanceof VkontakteApiClient) {
             $this->parser = new TemplateParser($config['vk']['messageTemplate']);
             $this->sender = new VkontakteSender($client, $this->parser, $server, $config);
+            $this->dataPhotos = $config['vk']['dataPhotos'] ?? [];
         } else {
             $this->parser = new TemplateParser($config['telegram']['messageTemplate']);
             $this->sender = new TelegramSender($client, $this->parser, $server);
+            $this->dataPhotos = $config['telegram']['dataPhotos'] ?? [];
         }
     }
 
@@ -52,4 +55,8 @@ class SenderFactory
         return $this->parser;
     }
 
+    public function getDataPhotos(): array
+    {
+        return $this->dataPhotos;
+    }
 }

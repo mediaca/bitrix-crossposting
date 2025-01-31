@@ -19,6 +19,7 @@ class mediaca_crossposting extends CModule
     public $PARTNER_NAME;
     public $PARTNER_URI;
 
+    private readonly string $moduleDir;
     private readonly string $dirAdminFrom;
     private readonly string $dirAdminTo;
 
@@ -35,6 +36,7 @@ class mediaca_crossposting extends CModule
             $this->MODULE_VERSION_DATE = $arModuleVersion['VERSION_DATE'];
         }
 
+        $this->moduleDir = dirname(__DIR__) . '/';
         $this->dirAdminFrom = dirname(__DIR__) . '/admin/include/';
         $this->dirAdminTo = Application::getDocumentRoot() . '/bitrix/admin/';
     }
@@ -42,17 +44,23 @@ class mediaca_crossposting extends CModule
 
     public function DoInstall(): void
     {
+        $this->InstallDB();
         $this->installFiles();
 
         ModuleManager::registerModule($this->MODULE_ID);
     }
 
-
-    public function DoUninstall(): void
+    public function InstallDB(): void
     {
-        $this->doUninstallFiles();
+        $file = $this->moduleDir . '/install/db/install.sql';
+        if (!is_readable($file)) {
+            throw new \RangeException("File $file is not available for reading");
+        }
 
-        ModuleManager::unRegisterModule($this->MODULE_ID);
+        $errors = Application::getConnection()->executeSqlBatch(file_get_contents($file));
+        if ($errors) {
+            throw new \DomainException("SQL queries failed with errors: " . implode(', ', $errors));
+        }
     }
 
     public function installFiles(): bool
@@ -87,7 +95,7 @@ class mediaca_crossposting extends CModule
 
             $result[] = [
                 'originalName' => $name,
-                'saveName'     => $this->getAdminFileName($name),
+                'saveName' => $this->getAdminFileName($name),
             ];
         }
 
@@ -99,6 +107,15 @@ class mediaca_crossposting extends CModule
         return str_replace('.', '-', $this->MODULE_ID) . '-' . $fileName;
     }
 
+
+    public function DoUninstall(): void
+    {
+        $this->DoUninstallDB();
+        $this->doUninstallFiles();
+
+        ModuleManager::unRegisterModule($this->MODULE_ID);
+    }
+
     public function doUninstallFiles(): bool
     {
         foreach ($this->getFileDataList() as $fileData) {
@@ -106,5 +123,18 @@ class mediaca_crossposting extends CModule
         }
 
         return true;
+    }
+
+    public function DoUninstallDB(): void
+    {
+        $file = $this->moduleDir . '/install/db/uninstall.sql';
+        if (!is_readable($file)) {
+            throw new \RangeException("File $file is not available for reading");
+        }
+
+        $errors = Application::getConnection()->executeSqlBatch(file_get_contents($file));
+        if ($errors) {
+            throw new \DomainException("SQL queries failed with errors: " . implode(', ', $errors));
+        }
     }
 }

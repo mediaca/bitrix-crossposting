@@ -1,0 +1,11 @@
+CREATE TABLE `mediaca_crossposting_task`
+(
+    `ID`         INT(10) UNSIGNED AUTO_INCREMENT NOT NULL,
+    `CREATED`    DATETIME NOT NULL,
+    `ELEMENT_ID` INT(10) UNSIGNED NOT NULL,
+    `CHANNEL`    ENUM('vkontakte', 'telegram') NOT NULL,
+    `STATUS`     ENUM('error', 'success') NULL,
+    `DATE_EXEC`  DATETIME NULL,
+    PRIMARY KEY (ID),
+    KEY          `ELEMENT_ID` (`ELEMENT_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

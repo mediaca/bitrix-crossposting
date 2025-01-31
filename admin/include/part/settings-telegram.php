@@ -37,7 +37,9 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
     </td>
     <td width="50%" class="adm-detail-content-cell-r">
         <textarea name="telegram_message_template" autocomplete="off" rows="5"
-                  cols="42"><?= htmlspecialchars($config['telegram']['messageTemplate'] ?? '') ?></textarea>
+                  cols="42"><?= htmlspecialchars(array_key_exists('messageTemplate', $config['telegram'] ?? [])
+                ? $config['telegram']['messageTemplate']
+                : Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_TELEGRAM_MESSAGE_TEMPLATE_DEFAULT_VALUE')) ?></textarea>
     </td>
 </tr>
 <tr>
@@ -46,9 +48,9 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
     </td>
     <td width="50%" class="adm-detail-content-cell-r">
         <input type="text" name="telegram_data_photos" size="40" autocomplete="off"
-               value="<?= htmlspecialchars(!empty($config['telegram']['dataPhotos']) ?
-                   implode(',', $config['telegram']['dataPhotos']) : '') ?>"
-               ?>
+               value="<?= htmlspecialchars(array_key_exists('dataPhotos', $config['telegram'] ?? [])
+                   ? implode(',', $config['telegram']['dataPhotos'])
+                   : Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_TELEGRAM_DATA_PHOTOS_DEFAULT_VALUE')) ?>">
     </td>
 </tr>
 <tr>

@@ -115,7 +115,9 @@ if ($vkIdClient) {
     </td>
     <td width="50%" class="adm-detail-content-cell-r">
         <textarea name="vk_message_template" autocomplete="off" rows="5"
-                  cols="42"><?= htmlspecialchars($config['vk']['messageTemplate'] ?? '') ?></textarea>
+                  cols="42"><?= htmlspecialchars(array_key_exists('messageTemplate', $config['vk'] ?? [])
+                ? $config['vk']['messageTemplate']
+                : Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_MESSAGE_TEMPLATE_DEFAULT_VALUE')) ?></textarea>
     </td>
 </tr>
 <tr>
@@ -124,8 +126,9 @@ if ($vkIdClient) {
     </td>
     <td width="50%" class="adm-detail-content-cell-r">
         <input type="text" name="vk_data_photos" size="40" autocomplete="off"
-               value="<?= htmlspecialchars(!empty($config['vk']['dataPhotos']) ?
-                   implode(',', $config['vk']['dataPhotos']) : '') ?>">
+               value="<?= htmlspecialchars(array_key_exists('dataPhotos', $config['vk'] ?? [])
+                   ? implode(',', $config['vk']['dataPhotos'])
+                   : Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_DATA_PHOTOS_DEFAULT_VALUE')) ?>">
     </td>
 </tr>
 <tr>

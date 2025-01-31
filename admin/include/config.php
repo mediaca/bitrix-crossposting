@@ -35,7 +35,7 @@ Loader::requireModule($moduleId);
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/bitrix/modules/main/include/prolog_admin_after.php');
 
-$APPLICATION->SetTitle(Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_TITLE'));
+$APPLICATION->SetTitle(Loc::getMessage('MEDIACA_CROSSPOSTING_TITLE'));
 
 $server = Context::getCurrent()->getServer();
 $request = Context::getCurrent()->getRequest();
@@ -113,16 +113,16 @@ if (!empty($_GET['request-authorization-code']) && $vkIdClient) {
 
 $tabs = [
     [
-        'DIV'   => 'mediaca_crossposting_settings_vk',
-        'TAB'   => Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_TITLE'),
-        'TITLE' => Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_TITLE'),
-        'file'  => __DIR__ . '/part/settings-vk.php',
+        'DIV' => 'mediaca_crossposting_vk',
+        'TAB' => Loc::getMessage('MEDIACA_CROSSPOSTING_VK_TITLE'),
+        'TITLE' => Loc::getMessage('MEDIACA_CROSSPOSTING_VK_TITLE'),
+        'file' => __DIR__ . '/part/config-vk.php',
     ],
     [
-        'DIV'   => 'mediaca_crossposting_settings_telegram',
-        'TAB'   => Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_TELEGRAM_TITLE'),
-        'TITLE' => Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_TELEGRAM_TITLE'),
-        'file'  => __DIR__ . '/part/settings-telegram.php',
+        'DIV' => 'mediaca_crossposting_telegram',
+        'TAB' => Loc::getMessage('MEDIACA_CROSSPOSTING_TELEGRAM_TITLE'),
+        'TITLE' => Loc::getMessage('MEDIACA_CROSSPOSTING_TELEGRAM_TITLE'),
+        'file' => __DIR__ . '/part/config-telegram.php',
     ],
 ];
 

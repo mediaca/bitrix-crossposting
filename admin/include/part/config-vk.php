@@ -30,7 +30,7 @@ $domain = ($request->isHttps() ? 'https://' : 'http://') . ($domain ?: $server->
 ?>
 <tr>
     <td width="50%" class="adm-detail-content-cell-l">
-        <?= Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_CLIENT_ID') ?>:
+        <?= Loc::getMessage('MEDIACA_CROSSPOSTING_VK_CLIENT_ID') ?>:
     </td>
     <td width="50%" class="adm-detail-content-cell-r">
         <input type="text" name="vk_client_id" size="10" autocomplete="off"
@@ -39,7 +39,7 @@ $domain = ($request->isHttps() ? 'https://' : 'http://') . ($domain ?: $server->
 </tr>
 <tr>
     <td width="50%" class="adm-detail-content-cell-l">
-        <?= Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_OWNER_ID') ?>:
+        <?= Loc::getMessage('MEDIACA_CROSSPOSTING_VK_OWNER_ID') ?>:
     </td>
     <td width="50%" class="adm-detail-content-cell-r">
         <input type="text" name="vk_owner_id" size="10" autocomplete="off"
@@ -48,7 +48,7 @@ $domain = ($request->isHttps() ? 'https://' : 'http://') . ($domain ?: $server->
 </tr>
 <tr>
     <td width="50%" class="adm-detail-content-cell-l">
-        <?= Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_FROM_GROUP') ?>:
+        <?= Loc::getMessage('MEDIACA_CROSSPOSTING_VK_FROM_GROUP') ?>:
     </td>
     <td width="50%" class="adm-detail-content-cell-r">
         <input type="checkbox" name="vk_from_group"<?= (!empty($config['vk']['fromGroup']) ? ' checked' : '') ?>/>
@@ -67,15 +67,15 @@ if ($vkIdClient) {
     $tokensUrl->addParams(['request-authorization-code' => true]);
     ?>
         <a href="<?= $tokensUrl->getUri() ?>"><?= !empty($config['vk']['accessToken']) ?
-            Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_UPDATE_TOKENS') :
-            Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_GET_TOKENS') ?></a>
+            Loc::getMessage('MEDIACA_CROSSPOSTING_VK_UPDATE_TOKENS') :
+            Loc::getMessage('MEDIACA_CROSSPOSTING_VK_GET_TOKENS') ?></a>
     </td>
     </tr><?php
 }
 ?>
 <tr>
     <td width="50%" class="adm-detail-content-cell-l">
-        <?= Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_ACCESS_TOKEN') ?>:
+        <?= Loc::getMessage('MEDIACA_CROSSPOSTING_VK_ACCESS_TOKEN') ?>:
     </td>
     <td width="50%" class="adm-detail-content-cell-r">
         <input type="text" size="40" disabled
@@ -84,7 +84,7 @@ if ($vkIdClient) {
 </tr>
 <tr>
     <td width="50%" class="adm-detail-content-cell-l">
-        <?= Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_REFRESH_TOKEN') ?>:
+        <?= Loc::getMessage('MEDIACA_CROSSPOSTING_VK_REFRESH_TOKEN') ?>:
     </td>
     <td width="50%" class="adm-detail-content-cell-r">
         <input type="text" size="40" disabled
@@ -93,7 +93,7 @@ if ($vkIdClient) {
 </tr>
 <tr>
     <td width="50%" class="adm-detail-content-cell-l">
-        <?= Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_ID_TOKEN') ?>:
+        <?= Loc::getMessage('MEDIACA_CROSSPOSTING_VK_ID_TOKEN') ?>:
     </td>
     <td width="50%" class="adm-detail-content-cell-r">
         <input type="text" size="40" disabled
@@ -102,7 +102,7 @@ if ($vkIdClient) {
 </tr>
 <tr>
     <td width="50%" class="adm-detail-content-cell-l">
-        <?= Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_DEVICE_ID') ?>:
+        <?= Loc::getMessage('MEDIACA_CROSSPOSTING_VK_DEVICE_ID') ?>:
     </td>
     <td width="50%" class="adm-detail-content-cell-r">
         <input type="text" size="40" disabled
@@ -111,29 +111,29 @@ if ($vkIdClient) {
 </tr>
 <tr>
     <td width="50%" class="adm-detail-content-cell-l">
-        <?= Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_MESSAGE_TEMPLATE') ?>:
+        <?= Loc::getMessage('MEDIACA_CROSSPOSTING_VK_MESSAGE_TEMPLATE') ?>:
     </td>
     <td width="50%" class="adm-detail-content-cell-r">
         <textarea name="vk_message_template" autocomplete="off" rows="5"
                   cols="42"><?= htmlspecialchars(array_key_exists('messageTemplate', $config['vk'] ?? [])
                 ? $config['vk']['messageTemplate']
-                : Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_MESSAGE_TEMPLATE_DEFAULT_VALUE')) ?></textarea>
+                : Loc::getMessage('MEDIACA_CROSSPOSTING_VK_MESSAGE_TEMPLATE_DEFAULT_VALUE')) ?></textarea>
     </td>
 </tr>
 <tr>
     <td width="50%" class="adm-detail-content-cell-l">
-        <?= Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_DATA_PHOTOS') ?>:
+        <?= Loc::getMessage('MEDIACA_CROSSPOSTING_VK_DATA_PHOTOS') ?>:
     </td>
     <td width="50%" class="adm-detail-content-cell-r">
         <input type="text" name="vk_data_photos" size="40" autocomplete="off"
                value="<?= htmlspecialchars(array_key_exists('dataPhotos', $config['vk'] ?? [])
                    ? implode(',', $config['vk']['dataPhotos'])
-                   : Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_DATA_PHOTOS_DEFAULT_VALUE')) ?>">
+                   : Loc::getMessage('MEDIACA_CROSSPOSTING_VK_DATA_PHOTOS_DEFAULT_VALUE')) ?>">
     </td>
 </tr>
 <tr>
     <td width="50%" class="adm-detail-content-cell-l">
-        <?= Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_USE_ALL_PHOTOS') ?>:
+        <?= Loc::getMessage('MEDIACA_CROSSPOSTING_VK_USE_ALL_PHOTOS') ?>:
     </td>
     <td width="50%" class="adm-detail-content-cell-r">
         <input type="checkbox" name="vk_use_all_photos"
@@ -142,6 +142,6 @@ if ($vkIdClient) {
 </tr>
 <tr>
     <td colspan="2">
-        <?= Loc::getMessage('MEDIACA_CROSSPOSTING_SETTINGS_VK_INSTRUCTION', ['#DOMAIN#' => $domain]) ?>
+        <?= Loc::getMessage('MEDIACA_CROSSPOSTING_VK_INSTRUCTION', ['#DOMAIN#' => $domain]) ?>
     </td>
 </tr>

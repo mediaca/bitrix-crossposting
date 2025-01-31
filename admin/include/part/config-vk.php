@@ -66,9 +66,12 @@ if ($vkIdClient) {
         $tokensUrl = new Uri($request->getRequestUri());
     $tokensUrl->addParams(['request-authorization-code' => true]);
     ?>
-        <a href="<?= $tokensUrl->getUri() ?>"><?= !empty($config['vk']['accessToken']) ?
-            Loc::getMessage('MEDIACA_CROSSPOSTING_VK_UPDATE_TOKENS') :
-            Loc::getMessage('MEDIACA_CROSSPOSTING_VK_GET_TOKENS') ?></a>
+        <a href="<?= $tokensUrl->getUri() ?>"
+           class="mediaca-crossposting-vk-button">
+            <img src="/bitrix/images/mediaca.crossposting/vk-logo.svg" class="mediaca-crossposting-vk-button__icon">
+            <span class="mediaca-crossposting-vk-button_text"><?= !empty($config['vk']['accessToken']) ? Loc::getMessage('MEDIACA_CROSSPOSTING_VK_UPDATE_TOKENS')
+                : Loc::getMessage('MEDIACA_CROSSPOSTING_VK_GET_TOKENS') ?></span>
+        </a>
     </td>
     </tr><?php
 }

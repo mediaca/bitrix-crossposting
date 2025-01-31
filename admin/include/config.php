@@ -30,6 +30,15 @@ if (!$USER->IsAdmin()) {
 
 $moduleId = 'mediaca.crossposting';
 
+// @todo перенести на события
+\CJSCore::RegisterExt(
+    $moduleId,
+    [
+        'css' => "/bitrix/css/$moduleId/styles.css",
+    ],
+);
+
+CJSCore::Init([$moduleId]);
 Loc::loadMessages(__FILE__);
 Loader::requireModule($moduleId);
 

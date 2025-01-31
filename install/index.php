@@ -21,8 +21,8 @@ class mediaca_crossposting extends CModule
     public $PARTNER_URI;
 
     private readonly string $moduleDir;
-    private readonly string $dirAdminFrom;
-    private readonly string $dirAdminTo;
+    private readonly string $adminIncludeDir;
+    private readonly string $bitrixDir;
 
     public function __construct()
     {
@@ -38,8 +38,8 @@ class mediaca_crossposting extends CModule
         }
 
         $this->moduleDir = dirname(__DIR__) . '/';
-        $this->dirAdminFrom = dirname(__DIR__) . '/admin/include/';
-        $this->dirAdminTo = Application::getDocumentRoot() . '/bitrix/admin/';
+        $this->adminIncludeDir = $this->moduleDir . 'admin/include/';
+        $this->bitrixDir = Application::getDocumentRoot() . '/bitrix/';
     }
 
 
@@ -66,31 +66,25 @@ class mediaca_crossposting extends CModule
 
     public function installFiles(): bool
     {
-        $relativeDirFrom = str_replace(Application::getDocumentRoot(), '', $this->dirAdminFrom);
+        $relativeDirFrom = str_replace(Application::getDocumentRoot(), '', $this->adminIncludeDir);
 
         foreach ($this->getFileDataList() as $fileData) {
-            $code = "<?php\n"
-                . 'require_once($_SERVER[\'DOCUMENT_ROOT\'] . \'' . $relativeDirFrom . $fileData['originalName'] . '\');';
+            $code = "<?php\n" . 'require_once($_SERVER[\'DOCUMENT_ROOT\']' . " . '$relativeDirFrom{$fileData['originalName']}');";
 
-            file_put_contents($this->dirAdminTo . $fileData['saveName'], $code);
+            file_put_contents("{$this->bitrixDir}admin/{$fileData['saveName']}", $code);
         }
+
+        CopyDirFiles("{$this->moduleDir}install/css", "{$this->bitrixDir}css/$this->MODULE_ID", true, true);
+        CopyDirFiles("{$this->moduleDir}install/images", "{$this->bitrixDir}images/$this->MODULE_ID", true, true);
 
         return true;
     }
 
     private function getFileDataList(): array
     {
-        if (!is_dir($this->dirAdminFrom)) {
-            return [];
-        }
-
         $result = [];
-        foreach (scandir($this->dirAdminFrom) as $name) {
-            if ($name === '.' || $name === '..') {
-                continue;
-            }
-
-            if (!is_file($this->dirAdminFrom . $name)) {
+        foreach (scandir($this->adminIncludeDir) as $name) {
+            if ($name === '.' || $name === '..' || !is_file($this->adminIncludeDir . $name)) {
                 continue;
             }
 
@@ -124,8 +118,11 @@ class mediaca_crossposting extends CModule
     public function doUninstallFiles(): bool
     {
         foreach ($this->getFileDataList() as $fileData) {
-            unlink($this->dirAdminTo . $fileData['saveName']);
+            unlink("{$this->bitrixDir}admin/{$fileData['saveName']}");
         }
+
+        DeleteDirFilesEx("bitrix/css/$this->MODULE_ID");
+        DeleteDirFilesEx("bitrix/images/$this->MODULE_ID");
 
         return true;
     }

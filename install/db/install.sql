@@ -1,4 +1,4 @@
-CREATE TABLE `mediaca_crossposting_task`
+CREATE TABLE IF NOT EXISTS `mediaca_crossposting_task`
 (
     `ID`         INT(10) UNSIGNED AUTO_INCREMENT NOT NULL,
     `CREATED`    DATETIME NOT NULL,

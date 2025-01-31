@@ -2,6 +2,7 @@
 
 
 use Bitrix\Main\Application;
+use Bitrix\Main\Config\Configuration;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\ModuleManager;
 
@@ -110,6 +111,10 @@ class mediaca_crossposting extends CModule
 
     public function DoUninstall(): void
     {
+        $config = Configuration::getInstance();
+        $config->delete($this->MODULE_ID);
+        $config->saveConfiguration();
+
         $this->DoUninstallDB();
         $this->doUninstallFiles();
 

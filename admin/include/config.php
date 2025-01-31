@@ -29,18 +29,9 @@ if (!$USER->IsAdmin()) {
 }
 
 $moduleId = 'mediaca.crossposting';
-
-// @todo перенести на события
-\CJSCore::RegisterExt(
-    $moduleId,
-    [
-        'css' => "/bitrix/css/$moduleId/styles.css",
-    ],
-);
-
-CJSCore::Init([$moduleId]);
 Loc::loadMessages(__FILE__);
 Loader::requireModule($moduleId);
+CJSCore::Init([$moduleId]);
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/bitrix/modules/main/include/prolog_admin_after.php');
 

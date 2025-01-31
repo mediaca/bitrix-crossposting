@@ -6,20 +6,13 @@ namespace Mediaca\Crossposting;
 
 use Bitrix\Main\Config\Configuration;
 use Mediaca\Crossposting\Iblock\ElementGateway;
-use Mediaca\Crossposting\Task\Channel;
+use Mediaca\Crossposting\Task\TaskGateway;
 
 class SenderAgent
 {
     public static function run(): string
     {
-        // @todo получать таски из шлюза
-        $tasks = [
-            [
-                'elementId' => 1,
-                'channel'   => Channel::VK,
-            ],
-        ];
-
+        $tasks = TaskGateway::fetchUnExecTasks(20);
         $config = Configuration::getValue('mediaca.crossposting');
         $gateway = new ElementGateway();
 
@@ -28,7 +21,7 @@ class SenderAgent
 
             $dataCodes = array_merge($senderFactory->getTemplateParser()->getDataCodes(), $senderFactory->getDataPhotos());
             $filter = [
-                'ID'     => $task['elementId'],
+                'ID' => $task['elementId'],
                 'ACTIVE' => 'Y',
             ];
 

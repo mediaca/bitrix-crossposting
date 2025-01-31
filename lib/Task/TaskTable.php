@@ -9,6 +9,7 @@ use Bitrix\Main\Entity\EnumField;
 use Bitrix\Main\Entity\IntegerField;
 use Bitrix\Main\ORM\Fields\DatetimeField;
 
+// @todo задуматься о добавлении индексов
 class TaskTable extends DataManager
 {
     public static function getTableName(): string
@@ -28,21 +29,26 @@ class TaskTable extends DataManager
             ),
             new DatetimeField('CREATED', ['required' => true]),
             new IntegerField('ELEMENT_ID', ['required' => true,]),
-            new EnumField('CHANNEL', [
-                'required' => true,
-                'values' => [
-                    'vkontakte',
-                    'telegram',
+            new EnumField(
+                'CHANNEL',
+                [
+                    'required' => true,
+                    'values' => [
+                        'vkontakte',
+                        'telegram',
+                    ],
                 ],
-            ]),
-            new EnumField('STATUS', [
-                'values' => [
-                    'error',
-                    'success',
+            ),
+            new EnumField(
+                'STATUS',
+                [
+                    'values' => [
+                        'error',
+                        'success',
+                    ],
                 ],
-            ]),
+            ),
             new DatetimeField('DATE_EXEC'),
         ];
     }
-
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mediaca\Crossposting;
 
 use Bitrix\Main\Web\HttpClient;
+use Mediaca\Crossposting\Task\Channel;
 use Mediaca\Crossposting\Telegram\TelegramBotClient;
 use Mediaca\Crossposting\Telegram\TelegramSender;
 use Mediaca\Crossposting\Template\TemplateParser;

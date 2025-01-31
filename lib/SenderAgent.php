@@ -6,6 +6,7 @@ namespace Mediaca\Crossposting;
 
 use Bitrix\Main\Config\Configuration;
 use Mediaca\Crossposting\Iblock\ElementGateway;
+use Mediaca\Crossposting\Task\Channel;
 
 class SenderAgent
 {

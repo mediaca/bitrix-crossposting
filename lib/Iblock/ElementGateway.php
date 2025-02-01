@@ -9,12 +9,7 @@ use CIBlockElement;
 
 class ElementGateway
 {
-    public function __construct()
-    {
-        Loader::requireModule('iblock');
-    }
-
-    public function getElement(array $select, array $filter): ?array
+    public function fetch(array $select, array $filter): ?array
     {
         $select = array_merge(
             $select,

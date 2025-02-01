@@ -2,6 +2,9 @@
 
 $MESS['MEDIACA_CROSSPOSTING_TITLE'] = 'Кросcпостинг: настройки';
 
+$MESS['MEDIACA_CROSSPOSTING_MAIN_TITLE'] = 'Настройки';
+$MESS['MEDIACA_CROSSPOSTING_MAIN_USE_IBLOCKS'] = 'Активно для инфоблоков:';
+
 $MESS['MEDIACA_CROSSPOSTING_VK_TITLE'] = 'ВКонтакте';
 $MESS['MEDIACA_CROSSPOSTING_VK_CLIENT_ID'] = 'Идентификатор приложения';
 $MESS['MEDIACA_CROSSPOSTING_VK_OWNER_ID'] = 'Идентификатор пользователя/сообщества';

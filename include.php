@@ -1,5 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
+use Bitrix\Main\Loader;
+
+Loader::requireModule('iblock');
+
 \CJSCore::RegisterExt(
     'mediaca.crossposting',
     [

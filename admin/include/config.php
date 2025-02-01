@@ -48,6 +48,8 @@ $redirectUri->deleteParams(['lang', 'request-authorization-code']);
 $config = Configuration::getValue($moduleId);
 
 if ($request->isPost()) {
+    $config['main']['iblocks'] = array_map('intval', $request->getPost('main_iblocks') ?? []);
+
     $config['vk']['clientId'] = $request->getPost('vk_client_id') ?
         (int) $request->getPost('vk_client_id') : null;
     $config['vk']['ownerId'] = $request->getPost('vk_owner_id') ?
@@ -112,6 +114,12 @@ if (!empty($_GET['request-authorization-code']) && $vkIdClient) {
 }
 
 $tabs = [
+    [
+        'DIV' => 'mediaca_crossposting_main',
+        'TAB' => Loc::getMessage('MEDIACA_CROSSPOSTING_MAIN_TITLE'),
+        'TITLE' => Loc::getMessage('MEDIACA_CROSSPOSTING_MAIN_TITLE'),
+        'file' => __DIR__ . '/part/config-main.php',
+    ],
     [
         'DIV' => 'mediaca_crossposting_vk',
         'TAB' => Loc::getMessage('MEDIACA_CROSSPOSTING_VK_TITLE'),

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Mediaca\Crossposting\Module;
 use Mediaca\Crossposting\Vk\Id\VkIdClient;
 use Bitrix\Main\Config\Option;
 use Bitrix\Main\Context;
@@ -66,7 +67,7 @@ if ($vkIdClient) {
     ?>
         <a href="<?= $tokensUrl->getUri() ?>"
            class="mediaca-crossposting-vk-button">
-            <img src="/bitrix/images/mediaca.crossposting/vk-logo.svg" class="mediaca-crossposting-vk-button__icon">
+            <img src="/bitrix/images/<?= Module::ID ?>/vk-logo.svg" class="mediaca-crossposting-vk-button__icon">
             <span class="mediaca-crossposting-vk-button_text"><?= !empty($config['vk']['accessToken']) ? Loc::getMessage('MEDIACA_CROSSPOSTING_VK_UPDATE_TOKENS')
                 : Loc::getMessage('MEDIACA_CROSSPOSTING_VK_GET_TOKENS') ?></span>
         </a>

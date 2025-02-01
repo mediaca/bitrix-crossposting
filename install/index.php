@@ -3,8 +3,11 @@
 
 use Bitrix\Main\Application;
 use Bitrix\Main\Config\Configuration;
+use Bitrix\Main\EventManager;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\ModuleManager;
+use Mediaca\Crossposting\CrosspostingTab;
+use Mediaca\Crossposting\TaskAdder;
 
 Loc::loadMessages(__FILE__);
 
@@ -47,6 +50,33 @@ class mediaca_crossposting extends CModule
     {
         $this->InstallDB();
         $this->installFiles();
+
+        EventManager::getInstance()->registerEventHandler(
+            'main',
+            'OnAdminIBlockElementEdit',
+            $this->MODULE_ID,
+            '\\' . CrosspostingTab::class,
+            'getDescription',
+            9999,
+        );
+
+        EventManager::getInstance()->registerEventHandler(
+            'iblock',
+            'OnAfterIBlockElementAdd',
+            $this->MODULE_ID,
+            '\\' . TaskAdder::class,
+            'addByEvent',
+            9999,
+        );
+
+        EventManager::getInstance()->registerEventHandler(
+            'iblock',
+            'OnAfterIBlockElementUpdate',
+            $this->MODULE_ID,
+            '\\' . TaskAdder::class,
+            'addByEvent',
+            9999,
+        );
 
         ModuleManager::registerModule($this->MODULE_ID);
     }
@@ -111,6 +141,36 @@ class mediaca_crossposting extends CModule
 
         $this->DoUninstallDB();
         $this->doUninstallFiles();
+
+        EventManager::getInstance()->unRegisterEventHandler(
+            'main',
+            'OnAdminIBlockElementEdit',
+            $this->MODULE_ID,
+            '\\' . CrosspostingTab::class,
+            'getDescription',
+            '',
+            '',
+        );
+
+        EventManager::getInstance()->unRegisterEventHandler(
+            'iblock',
+            'OnAfterIBlockElementUpdate',
+            $this->MODULE_ID,
+            '\\' . TaskAdder::class,
+            'addByEvent',
+            '',
+            '',
+        );
+
+        EventManager::getInstance()->unRegisterEventHandler(
+            'iblock',
+            'OnAfterIBlockElementAdd',
+            $this->MODULE_ID,
+            '\\' . TaskAdder::class,
+            'addByEvent',
+            '',
+            '',
+        );
 
         ModuleManager::unRegisterModule($this->MODULE_ID);
     }

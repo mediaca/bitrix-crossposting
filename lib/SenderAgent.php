@@ -13,7 +13,7 @@ class SenderAgent
     public static function run(): string
     {
         $tasks = TaskGateway::fetchUnExecTasks(20);
-        $config = Configuration::getValue('mediaca.crossposting');
+        $config = Configuration::getValue(Module::ID);
         $gateway = new ElementGateway();
 
         foreach ($tasks as $task) {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Mediaca\Crossposting\Vk\Api;
 
-use Mediaca\Crossposting\Config\VkChannelConfig;
+use Mediaca\Crossposting\ChannelConfig\VkChannelConfig;
 use Mediaca\Crossposting\Iblock\ElementGateway;
 use Mediaca\Crossposting\Sender;
 use Mediaca\Crossposting\Server;

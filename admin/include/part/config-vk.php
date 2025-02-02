@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Mediaca\Crossposting\Config\VkChannelConfig;
+use Mediaca\Crossposting\ChannelConfig\VkChannelConfig;
 use Mediaca\Crossposting\Module;
 use Mediaca\Crossposting\Task\Channel;
 use Mediaca\Crossposting\Vk\Id\VkIdClient;

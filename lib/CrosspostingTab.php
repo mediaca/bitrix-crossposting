@@ -6,7 +6,7 @@ namespace Mediaca\Crossposting;
 
 use Bitrix\Main\Config\Configuration;
 use Bitrix\Main\Localization\Loc;
-use Mediaca\Crossposting\Config\ChannelConfigFactory;
+use Mediaca\Crossposting\ChannelConfig\ChannelConfigFactory;
 use Mediaca\Crossposting\Task\Channel;
 
 class CrosspostingTab
@@ -43,18 +43,22 @@ class CrosspostingTab
     {
         $config = Configuration::getValue(Module::ID);
 
+        $noticeMessage = Loc::getMessage(
+            'MEDIACA_CROSSPOSTING_TAB_TASK_CHANNEL_FILL_REQUIRED_FIELDS',
+            ['#CONFIG_URL#' => '/bitrix/admin/mediaca-crossposting-config.php?lang=' . LANGUAGE_ID],
+        );
+
         foreach (Channel::cases() as $channel) {
             $channelConfig = ChannelConfigFactory::build($channel, $config);
             $fieldName = self::getFieldNameChannel($channel, $config);
             $title = Loc::getMessage('MEDIACA_CROSSPOSTING_TAB_TASK_CHANNEL_' . strtoupper($channel->value));
-            $disabled = $channelConfig->isFilledRequiredFields() ? '' : ' disabled' ;
-            $errorMessage = $disabled ? '<br>' . Loc::getMessage('MEDIACA_CROSSPOSTING_TAB_TASK_CHANNEL_FILL_REQUIRED_FIELDS') : '';
+            $disabled = $channelConfig->isFilledRequiredFields() ? '' : ' disabled';
 
             echo "<tr>
                     <td width=\"40%\" class=\"adm-detail-valign-top adm-detail-content-cell-l\"><label for=\"$fieldName\">$title</label></td>
                     <td width=\"60%\" class=\"adm-detail-content-cell-r\">
-                      <input type=\"checkbox\" name=\"$fieldName\" id=\"$fieldName\" $disabled>$errorMessage
-                    </td>
+                      <input type=\"checkbox\" name=\"$fieldName\" id=\"$fieldName\" $disabled>" . ($disabled ? "<br>$noticeMessage" : '')
+                . "</td>
             </tr>";
         }
     }

@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 
-use Mediaca\Crossposting\Config\TelegramChannelConfig;
-use Mediaca\Crossposting\Config\VkChannelConfig;
+use Mediaca\Crossposting\ChannelConfig\TelegramChannelConfig;
+use Mediaca\Crossposting\ChannelConfig\VkChannelConfig;
 use Mediaca\Crossposting\Task\Channel;
 use Mediaca\Crossposting\Vk\Id\CodeVerifier;
 use Mediaca\Crossposting\Vk\Id\Scope;

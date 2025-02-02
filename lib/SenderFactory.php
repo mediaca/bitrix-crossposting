@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Mediaca\Crossposting;
 
 use Bitrix\Main\Web\HttpClient;
-use Mediaca\Crossposting\Config\ChannelConfigFactory;
-use Mediaca\Crossposting\Config\TelegramChannelConfig;
-use Mediaca\Crossposting\Config\VkChannelConfig;
+use Mediaca\Crossposting\ChannelConfig\ChannelConfigFactory;
+use Mediaca\Crossposting\ChannelConfig\TelegramChannelConfig;
+use Mediaca\Crossposting\ChannelConfig\VkChannelConfig;
 use Mediaca\Crossposting\Iblock\ElementGateway;
 use Mediaca\Crossposting\Task\Channel;
 use Mediaca\Crossposting\Telegram\TelegramBotClient;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mediaca\Crossposting\Config;
+namespace Mediaca\Crossposting\ChannelConfig;
 
 class VkChannelConfig implements ChannelConfig
 {

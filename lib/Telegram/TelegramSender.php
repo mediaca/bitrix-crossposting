@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Mediaca\Crossposting\Telegram;
 
-use Mediaca\Crossposting\Config\TelegramChannelConfig;
+use Mediaca\Crossposting\ChannelConfig\TelegramChannelConfig;
 use Mediaca\Crossposting\Iblock\ElementGateway;
 use Mediaca\Crossposting\Sender;
 use Mediaca\Crossposting\Server;

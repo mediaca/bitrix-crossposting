@@ -52,6 +52,7 @@ $vkConfig = new VkChannelConfig($config[Channel::VK->value] ?? []);
 
 if ($request->isPost()) {
     $config['main']['iblocks'] = array_map('intval', $request->getPost('main')['iblocks'] ?? []);
+    $config['main']['notifyCreatedTasks'] = (bool) $request->getPost('main')['notify_created_tasks'];
 
     $vkConfig = VkChannelConfig::byFormData($request->getPost(Channel::VK->value));
     $config[Channel::VK->value] = $vkConfig->getValues();

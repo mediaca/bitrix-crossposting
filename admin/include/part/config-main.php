@@ -16,7 +16,7 @@ $useIblocks = $config['main']['iblocks'] ?? [];
         <?= Loc::getMessage('MEDIACA_CROSSPOSTING_MAIN_USE_IBLOCKS') ?>
     </td>
     <td width="60%" class="adm-detail-content-cell-r">
-        <select name="main_iblocks[]" size="6" multiple><?php
+        <select name="main[iblocks][]" size="6" multiple><?php
             foreach ($types as $type) {
                 $filteredIblocks = array_filter($iblocks, static fn($iblock) => $iblock['typeId'] === $type['id']);
                 ?>

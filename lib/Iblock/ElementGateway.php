@@ -9,7 +9,7 @@ use CIBlockElement;
 
 class ElementGateway
 {
-    public function fetch(array $select, array $filter): ?array
+    public function require(array $select, array $filter): ?array
     {
         $select = array_merge(
             $select,
@@ -22,6 +22,7 @@ class ElementGateway
 
         $result = CIBlockElement::GetList([], $filter, false, ['nPageSize' => 1], $select);
 
-        return $result->GetNext(false, false);
+        return $result->GetNext(false, false)
+            ?? throw new \RangeException("No selected element with filter: " . json_encode($filter, JSON_THROW_ON_ERROR));
     }
 }

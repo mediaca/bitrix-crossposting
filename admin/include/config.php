@@ -3,7 +3,9 @@
 declare(strict_types=1);
 
 
-use Mediaca\Crossposting\Vk\Id\AccessTokens;
+use Mediaca\Crossposting\Config\TelegramChannelConfig;
+use Mediaca\Crossposting\Config\VkChannelConfig;
+use Mediaca\Crossposting\Task\Channel;
 use Mediaca\Crossposting\Vk\Id\CodeVerifier;
 use Mediaca\Crossposting\Vk\Id\Scope;
 use Mediaca\Crossposting\Vk\Id\VkIdClient;
@@ -43,31 +45,27 @@ $request = Context::getCurrent()->getRequest();
 $domain = Option::get('main', 'server_name');
 $domain = ($request->isHttps() ? 'https://' : 'http://') . ($domain ?: $server->getServerName());
 $redirectUri = new Uri($domain . $request->getRequestUri());
-$redirectUri->deleteParams(['lang', 'request-authorization-code']);
+$redirectUri->deleteParams(['lang', 'request-authorization-code', '_r']);
 
 $config = Configuration::getValue($moduleId);
+$vkConfig = new VkChannelConfig($config[Channel::VK->value] ?? []);
 
 if ($request->isPost()) {
-    $config['main']['iblocks'] = array_map('intval', $request->getPost('main_iblocks') ?? []);
+    $config['main']['iblocks'] = array_map('intval', $request->getPost('main')['iblocks'] ?? []);
 
-    $config['vk']['clientId'] = $request->getPost('vk_client_id') ?
-        (int) $request->getPost('vk_client_id') : null;
-    $config['vk']['ownerId'] = $request->getPost('vk_owner_id') ?
-        (int) $request->getPost('vk_owner_id') : null;
-    $config['vk']['fromGroup'] = (bool) $request->getPost('vk_from_group');
-    $config['vk']['dataPhotos'] = array_map('trim', explode(',', $request->getPost('vk_data_photos')));
-    $config['vk']['useAllPhotos'] = (bool) $request->getPost('vk_use_all_photos');
+    $vkConfig = VkChannelConfig::byFormData($request->getPost(Channel::VK->value));
+    $config[Channel::VK->value] = $vkConfig->getValues();
 
-    $config['telegram']['accessToken'] = $request->getPost('telegram_access_token');
-    $config['telegram']['chatUserName'] = $request->getPost('telegram_chat_user_name');
-    $config['telegram']['messageTemplate'] = $request->getPost('telegram_message_template');
-    $config['telegram']['dataPhotos'] = array_map('trim', explode(',', $request->getPost('telegram_data_photos')));
+    $telegramConfig = TelegramChannelConfig::byFormData($request->getPost(Channel::TELEGRAM->value));
+    $config[Channel::TELEGRAM->value] = $telegramConfig->getValues();
 
     Configuration::setValue($moduleId, $config);
+} else {
+    $vkConfig = new VkChannelConfig($config[Channel::VK->value] ?? []);
+    $telegramConfig = new TelegramChannelConfig($config[Channel::TELEGRAM->value] ?? []);
 }
 
-$vkIdClient = !empty($config['vk']['clientId']) ?
-    new VkIdClient(new HttpClient(), $config['vk']['clientId']) : null;
+$vkIdClient = $vkConfig->clientId ? new VkIdClient(new HttpClient(), $vkConfig->clientId) : null;
 
 if (!empty($_GET['request-authorization-code']) && $vkIdClient) {
     $scopes = [Scope::WALL, Scope::PHOTOS];
@@ -93,17 +91,12 @@ if (!empty($_GET['request-authorization-code']) && $vkIdClient) {
         null,
     );
 
-    $tokens = new AccessTokens(
-        $response['access_token'],
-        $response['refresh_token'],
-        $response['id_token'],
-        $request->get('device_id'),
-    );
+    $vkConfig->accessToken = $response['access_token'];
+    $vkConfig->refreshToken = $response['refresh_token'];
+    $vkConfig->idToken = $response['id_token'];
+    $vkConfig->deviceId = $request->get('device_id');
 
-    $config['vk']['accessToken'] = $tokens->accessToken;
-    $config['vk']['refreshToken'] = $tokens->refreshToken;
-    $config['vk']['idToken'] = $tokens->idToken;
-    $config['vk']['deviceId'] = $tokens->deviceId;
+    $config[Channel::VK->value] = $vkConfig->getValues();
 
     Configuration::setValue($moduleId, $config);
 
@@ -141,20 +134,21 @@ $tabControl = new CAdminTabControl(
 
 $tabControl->begin();
 ?>
-    <form action="<?= $request->getRequestUri() ?>" method="post">
-        <?= bitrix_sessid_post() ?>
-        <?php
+<form action="<?= $request->getRequestUri() ?>" method="post">
+<?php
 
-        foreach ($tabs as $tab) {
-            $tabControl->BeginNextTab();
+echo bitrix_sessid_post();
 
-            require $tab['file'];
-        }
+foreach ($tabs as $tab) {
+    $tabControl->BeginNextTab();
+
+    require $tab['file'];
+}
 
 $tabControl->buttons([]);
-?>
-    </form>
-<?php
+
+?></form><?php
+
 $tabControl->end();
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/bitrix/modules/main/include/epilog_admin.php');

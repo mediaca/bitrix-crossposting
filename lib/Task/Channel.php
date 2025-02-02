@@ -6,6 +6,6 @@ namespace Mediaca\Crossposting\Task;
 
 enum Channel: string
 {
-    case VK = 'vkontakte';
+    case VK = 'vk';
     case TELEGRAM = 'telegram';
 }

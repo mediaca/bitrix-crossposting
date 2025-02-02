@@ -6,5 +6,5 @@ namespace Mediaca\Crossposting;
 
 interface Sender
 {
-    public function send(array $data, array $photos);
+    public function send(int $elementId);
 }

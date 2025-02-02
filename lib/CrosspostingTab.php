@@ -6,6 +6,7 @@ namespace Mediaca\Crossposting;
 
 use Bitrix\Main\Config\Configuration;
 use Bitrix\Main\Localization\Loc;
+use Mediaca\Crossposting\Config\ChannelConfigFactory;
 use Mediaca\Crossposting\Task\Channel;
 
 class CrosspostingTab
@@ -40,15 +41,20 @@ class CrosspostingTab
 
     public static function showTabContent(string $tabId, array $element, $formData): void
     {
-        foreach (Channel::cases() as $channel) {
-            $name = self::getFieldNameChannel($channel);
-            $title = Loc::getMessage('MEDIACA_CROSSPOSTING_TAB_TASK_CHANNEL_' . strtoupper($channel->value));
+        $config = Configuration::getValue(Module::ID);
 
-            // @todo блокировать чекбоксы с уведомлением о необходимости заполнить настройки
+        foreach (Channel::cases() as $channel) {
+            $channelConfig = ChannelConfigFactory::build($channel, $config);
+            $fieldName = self::getFieldNameChannel($channel, $config);
+            $title = Loc::getMessage('MEDIACA_CROSSPOSTING_TAB_TASK_CHANNEL_' . strtoupper($channel->value));
+            $disabled = $channelConfig->isFilledRequiredFields() ? '' : ' disabled' ;
+            $errorMessage = $disabled ? '<br>' . Loc::getMessage('MEDIACA_CROSSPOSTING_TAB_TASK_CHANNEL_FILL_REQUIRED_FIELDS') : '';
 
             echo "<tr>
-                    <td width=\"40%\" class=\"adm-detail-valign-top adm-detail-content-cell-l\"><label for=\"$name\">$title</label></td>
-                    <td width=\"60%\" class=\"adm-detail-content-cell-r\"><input type=\"checkbox\" name=\"$name\" id=\"$name\"></td>
+                    <td width=\"40%\" class=\"adm-detail-valign-top adm-detail-content-cell-l\"><label for=\"$fieldName\">$title</label></td>
+                    <td width=\"60%\" class=\"adm-detail-content-cell-r\">
+                      <input type=\"checkbox\" name=\"$fieldName\" id=\"$fieldName\" $disabled>$errorMessage
+                    </td>
             </tr>";
         }
     }

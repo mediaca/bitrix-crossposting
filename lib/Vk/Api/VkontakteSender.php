@@ -44,7 +44,7 @@ class VkontakteSender implements Sender
 
         foreach ($photos as $photo) {
             $photo = $this->client->uploadWallPhotoAndSave(
-                $this->config['ownerId'],
+                $this->config->ownerId,
                 $this->server->getDocumentRoot() . $photo['src'],
             );
 
@@ -54,8 +54,8 @@ class VkontakteSender implements Sender
         }
 
         $this->client->wallPost(
-            $this->config['ownerId'],
-            $this->config['fromGroup'] ?? false,
+            $this->config->ownerId,
+            $this->config->fromGroup,
             $message,
             $attachments,
         );

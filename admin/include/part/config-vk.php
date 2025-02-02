@@ -60,7 +60,7 @@ $domain = ($request->isHttps() ? 'https://' : 'http://') . ($domain ?: $server->
         <?= Loc::getMessage('MEDIACA_CROSSPOSTING_VK_ACCESS_TOKEN') ?>:
     </td>
     <td width="60%" class="adm-detail-content-cell-r">
-        <input type="text" name="<?= Channel::VK->value?>[access_token]" size="40" disabled
+        <input type="text" name="<?= Channel::VK->value?>[access_token]" size="40" readonly
                value="<?= htmlspecialchars($vkConfig->accessToken ?? '') ?>"/>
     </td>
 </tr>
@@ -69,7 +69,7 @@ $domain = ($request->isHttps() ? 'https://' : 'http://') . ($domain ?: $server->
         <?= Loc::getMessage('MEDIACA_CROSSPOSTING_VK_REFRESH_TOKEN') ?>:
     </td>
     <td width="60%" class="adm-detail-content-cell-r">
-        <input type="text" name="<?= Channel::VK->value?>[refresh_token]" size="40" disabled
+        <input type="text" name="<?= Channel::VK->value?>[refresh_token]" size="40" readonly
                value="<?= htmlspecialchars($vkConfig->refreshToken ?? '') ?>"/>
     </td>
 </tr>
@@ -78,7 +78,7 @@ $domain = ($request->isHttps() ? 'https://' : 'http://') . ($domain ?: $server->
         <?= Loc::getMessage('MEDIACA_CROSSPOSTING_VK_ID_TOKEN') ?>:
     </td>
     <td width="60%" class="adm-detail-content-cell-r">
-        <input type="text" name="<?= Channel::VK->value?>[id_token]" size="40" disabled
+        <input type="text" name="<?= Channel::VK->value?>[id_token]" size="40" readonly
                value="<?= htmlspecialchars($vkConfig->idToken ?? '') ?>"/>
     </td>
 </tr>
@@ -87,7 +87,7 @@ $domain = ($request->isHttps() ? 'https://' : 'http://') . ($domain ?: $server->
         <?= Loc::getMessage('MEDIACA_CROSSPOSTING_VK_DEVICE_ID') ?>:
     </td>
     <td width="60%" class="adm-detail-content-cell-r">
-        <input type="text" name="<?= Channel::VK->value?>[device_id]" size="40" disabled
+        <input type="text" name="<?= Channel::VK->value?>[device_id]" size="40" readonly
                value="<?= htmlspecialchars($vkConfig->deviceId ?? '') ?>"/>
     </td>
 </tr>

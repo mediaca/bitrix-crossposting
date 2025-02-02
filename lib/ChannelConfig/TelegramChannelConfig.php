@@ -22,7 +22,7 @@ class TelegramChannelConfig implements ChannelConfig
     public static function byFormData(array $formData): self
     {
         $data = [
-            'accessToken' => $formData['owner_id'] ? (int) $formData['access_token'] : null,
+            'accessToken' => $formData['access_token'] ?? null,
             'chatUserName' => $formData['chat_user_name'] ?? null,
             'dataPhotos' => $formData['data_photos'] ? array_map('trim', explode(',', $formData['data_photos'])) : null,
             'messageTemplate' => $formData['messageTemplate'],
@@ -34,8 +34,8 @@ class TelegramChannelConfig implements ChannelConfig
     public function getValues(): array
     {
         return [
-            'ownerId' => $this->accessToken,
-            'fromGroup' => $this->chatUserName,
+            'accessToken' => $this->accessToken,
+            'chatUserName' => $this->chatUserName,
             'dataPhotos' => $this->dataPhotos,
             'messageTemplate' => $this->messageTemplate,
         ];

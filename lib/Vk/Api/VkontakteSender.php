@@ -35,7 +35,7 @@ class VkontakteSender implements Sender
         $message = $this->parser->build($data);
         $attachments = new Attachments();
         $attachments->addAttachment(new LinkAttachment(
-            (str_starts_with('/', $data['DETAIL_PAGE_URL']) ? $this->server->getDomain() : '') . $data['DETAIL_PAGE_URL'],
+            (str_starts_with($data['DETAIL_PAGE_URL'], '/') ? $this->server->getDomain() : '') . $data['DETAIL_PAGE_URL'],
         ));
 
         if (!$this->config->useAllPhotos && count($photos) > 1) {
@@ -89,7 +89,7 @@ class VkontakteSender implements Sender
         $rawFiles = [];
         $db = \CFile::GetList([], ['@id' => implode(',', $ids)]);
         while ($rawFile = $db->Fetch()) {
-            $rawFile['SRC'] = \CFile::GetFileSRC($rawFile);
+            $rawFile['src'] = \CFile::GetFileSRC($rawFile);
 
             $rawFiles[$rawFile['ID']] = $rawFile;
         }

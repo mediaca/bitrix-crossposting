@@ -9,7 +9,6 @@ use Bitrix\Main\Entity\EnumField;
 use Bitrix\Main\Entity\IntegerField;
 use Bitrix\Main\ORM\Fields\DatetimeField;
 
-// @todo задуматься о добавлении индексов
 class TaskTable extends DataManager
 {
     public static function getTableName(): string
@@ -34,7 +33,7 @@ class TaskTable extends DataManager
                 [
                     'required' => true,
                     'values' => [
-                        'vkontakte',
+                        'vk',
                         'telegram',
                     ],
                 ],

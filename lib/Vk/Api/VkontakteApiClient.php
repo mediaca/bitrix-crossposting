@@ -28,7 +28,7 @@ class VkontakteApiClient
         $data = [
             'owner_id' => $ownerId,
             'from_group' => $fromGroup ? '1' : '0',
-            'message' => $message,
+            'message' => strip_tags($message),
         ];
 
         if ($attachments) {

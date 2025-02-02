@@ -25,7 +25,7 @@ class TelegramChannelConfig implements ChannelConfig
             'accessToken' => $formData['access_token'] ?? null,
             'chatUserName' => $formData['chat_user_name'] ?? null,
             'dataPhotos' => $formData['data_photos'] ? array_map('trim', explode(',', $formData['data_photos'])) : null,
-            'messageTemplate' => $formData['messageTemplate'],
+            'messageTemplate' => $formData['message_template'] ?? null,
         ];
 
         return new self($data);

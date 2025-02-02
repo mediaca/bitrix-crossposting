@@ -40,7 +40,7 @@ class VkChannelConfig implements ChannelConfig
             'fromGroup' => (bool) $formData['from_group'],
             'dataPhotos' => $formData['data_photos'] ? array_map('trim', explode(',', $formData['data_photos'])) : null,
             'useAllPhotos' => (bool) $formData['all_photos'],
-            'messageTemplate' => $formData['messageTemplate'],
+            'messageTemplate' => $formData['message_template'] ?? null,
 
             'accessToken' => $formData['access_token'] ?? null,
             'refreshToken' => $formData['refresh_token'] ?? null,

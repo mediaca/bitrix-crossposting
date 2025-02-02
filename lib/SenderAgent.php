@@ -11,6 +11,7 @@ class SenderAgent
 {
     public static function run(): string
     {
+        // @завершение задач
         $tasks = TaskGateway::fetchUnExecTasks(20);
         $config = Configuration::getValue(Module::ID);
 

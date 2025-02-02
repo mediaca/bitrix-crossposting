@@ -29,7 +29,7 @@ class TelegramSender implements Sender
         $photo = self::getFile($data, $this->config->dataPhotos);
 
         $message = $this->parser->build($data);
-        $url = (str_starts_with('/', $data['DETAIL_PAGE_URL']) ? $this->server->getDomain() : '') . $data['DETAIL_PAGE_URL'];
+        $url = (str_starts_with($data['DETAIL_PAGE_URL'], '/') ? $this->server->getDomain() : '') . $data['DETAIL_PAGE_URL'];
 
         $text = new TextTelegramMessage($message, "\n\n$url");
 

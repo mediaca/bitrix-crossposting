@@ -115,14 +115,14 @@ $tabs = [
     ],
     [
         'DIV' => 'mediaca_crossposting_vk',
-        'TAB' => Loc::getMessage('MEDIACA_CROSSPOSTING_VK_TITLE'),
-        'TITLE' => Loc::getMessage('MEDIACA_CROSSPOSTING_VK_TITLE'),
+        'TAB' => Loc::getMessage('MEDIACA_CROSSPOSTING_CHANNEL_VK'),
+        'TITLE' => Loc::getMessage('MEDIACA_CROSSPOSTING_CHANNEL_VK'),
         'file' => __DIR__ . '/part/config-vk.php',
     ],
     [
         'DIV' => 'mediaca_crossposting_telegram',
-        'TAB' => Loc::getMessage('MEDIACA_CROSSPOSTING_TELEGRAM_TITLE'),
-        'TITLE' => Loc::getMessage('MEDIACA_CROSSPOSTING_TELEGRAM_TITLE'),
+        'TAB' => Loc::getMessage('MEDIACA_CROSSPOSTING_CHANNEL_TELEGRAM'),
+        'TITLE' => Loc::getMessage('MEDIACA_CROSSPOSTING_CHANNEL_TELEGRAM'),
         'file' => __DIR__ . '/part/config-telegram.php',
     ],
 ];

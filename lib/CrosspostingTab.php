@@ -51,7 +51,7 @@ class CrosspostingTab
         foreach (Channel::cases() as $channel) {
             $channelConfig = ChannelConfigFactory::build($channel, $config);
             $fieldName = self::getFieldNameChannel($channel, $config);
-            $title = Loc::getMessage('MEDIACA_CROSSPOSTING_TAB_TASK_CHANNEL_' . strtoupper($channel->value));
+            $title = Loc::getMessage('MEDIACA_CROSSPOSTING_CHANNEL_' . strtoupper($channel->value));
             $disabled = $channelConfig->isFilledRequiredFields() ? '' : ' disabled';
 
             echo "<tr>

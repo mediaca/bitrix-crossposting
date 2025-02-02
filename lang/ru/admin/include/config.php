@@ -5,7 +5,6 @@ $MESS['MEDIACA_CROSSPOSTING_TITLE'] = 'Кросcпостинг: настройк
 $MESS['MEDIACA_CROSSPOSTING_MAIN_TITLE'] = 'Настройки';
 $MESS['MEDIACA_CROSSPOSTING_MAIN_USE_IBLOCKS'] = 'Активно для инфоблоков:';
 
-$MESS['MEDIACA_CROSSPOSTING_VK_TITLE'] = 'ВКонтакте';
 $MESS['MEDIACA_CROSSPOSTING_VK_CLIENT_ID'] = 'Идентификатор приложения';
 $MESS['MEDIACA_CROSSPOSTING_VK_OWNER_ID'] = 'Идентификатор пользователя/сообщества';
 $MESS['MEDIACA_CROSSPOSTING_VK_FROM_GROUP'] = 'Публиковать от имени сообщества';
@@ -47,7 +46,6 @@ $MESS['MEDIACA_CROSSPOSTING_VK_INSTRUCTION'] = '
 и добавив знак -, должно получиться значение вида "-229109218".</p>
 ';
 
-$MESS['MEDIACA_CROSSPOSTING_TELEGRAM_TITLE'] = 'Телеграм';
 $MESS['MEDIACA_CROSSPOSTING_TELEGRAM_ACCESS_TOKEN'] = 'Токен доступа бота';
 $MESS['MEDIACA_CROSSPOSTING_TELEGRAM_CHAT_USER_NAME'] = 'Юзернейм чата (с начальным @)';
 $MESS['MEDIACA_CROSSPOSTING_TELEGRAM_MESSAGE_TEMPLATE'] = 'Шаблон сообщения';

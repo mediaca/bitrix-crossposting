@@ -14,8 +14,8 @@ class VkChannelConfig implements ChannelConfig
     public readonly ?string $messageTemplate;
     public ?string $accessToken;
     public ?string $refreshToken;
-    public ?string $idToken;
-    public ?string $deviceId;
+    public readonly ?string $idToken;
+    public readonly ?string $deviceId;
 
     public function __construct(array $data)
     {
@@ -41,7 +41,6 @@ class VkChannelConfig implements ChannelConfig
             'dataPhotos' => $formData['data_photos'] ? array_map('trim', explode(',', $formData['data_photos'])) : null,
             'useAllPhotos' => (bool) $formData['all_photos'],
             'messageTemplate' => $formData['message_template'] ?? null,
-
             'accessToken' => $formData['access_token'] ?? null,
             'refreshToken' => $formData['refresh_token'] ?? null,
             'idToken' => $formData['id_token'] ?? null,

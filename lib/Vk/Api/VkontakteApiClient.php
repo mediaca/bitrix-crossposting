@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mediaca\Crossposting\Vk\Api;
 
 use Mediaca\Crossposting\Exception\RequestFailException;
-use Mediaca\Crossposting\Exception\UserAuthorizationFailException;
+use Mediaca\Crossposting\Exception\Vk\UserAuthorizationFailException;
 use Mediaca\Crossposting\Vk\Api\WallPost\Attachments;
 use Bitrix\Main\IO\File;
 use Bitrix\Main\Web\Http\FormStream;

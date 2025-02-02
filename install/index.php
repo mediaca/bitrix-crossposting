@@ -7,6 +7,7 @@ use Bitrix\Main\EventManager;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\ModuleManager;
 use Mediaca\Crossposting\CrosspostingTab;
+use Mediaca\Crossposting\SenderAgent;
 use Mediaca\Crossposting\TaskAdder;
 
 Loc::loadMessages(__FILE__);
@@ -50,33 +51,9 @@ class mediaca_crossposting extends CModule
     {
         $this->InstallDB();
         $this->installFiles();
+        $this->registerEventsHandlers();
 
-        EventManager::getInstance()->registerEventHandler(
-            'main',
-            'OnAdminIBlockElementEdit',
-            $this->MODULE_ID,
-            '\\' . CrosspostingTab::class,
-            'getDescription',
-            9999,
-        );
-
-        EventManager::getInstance()->registerEventHandler(
-            'iblock',
-            'OnAfterIBlockElementAdd',
-            $this->MODULE_ID,
-            '\\' . TaskAdder::class,
-            'addByEvent',
-            9999,
-        );
-
-        EventManager::getInstance()->registerEventHandler(
-            'iblock',
-            'OnAfterIBlockElementUpdate',
-            $this->MODULE_ID,
-            '\\' . TaskAdder::class,
-            'addByEvent',
-            9999,
-        );
+        CAgent::AddAgent('\\' . SenderAgent::class . '::run();', $this->MODULE_ID, 'N', 120);
 
         ModuleManager::registerModule($this->MODULE_ID);
     }
@@ -132,6 +109,35 @@ class mediaca_crossposting extends CModule
         return str_replace('.', '-', $this->MODULE_ID) . '-' . $fileName;
     }
 
+    private function registerEventsHandlers(): void
+    {
+        EventManager::getInstance()->registerEventHandler(
+            'main',
+            'OnAdminIBlockElementEdit',
+            $this->MODULE_ID,
+            '\\' . CrosspostingTab::class,
+            'getDescription',
+            9999,
+        );
+
+        EventManager::getInstance()->registerEventHandler(
+            'iblock',
+            'OnAfterIBlockElementAdd',
+            $this->MODULE_ID,
+            '\\' . TaskAdder::class,
+            'addByEvent',
+            9999,
+        );
+
+        EventManager::getInstance()->registerEventHandler(
+            'iblock',
+            'OnAfterIBlockElementUpdate',
+            $this->MODULE_ID,
+            '\\' . TaskAdder::class,
+            'addByEvent',
+            9999,
+        );
+    }
 
     public function DoUninstall(): void
     {
@@ -141,7 +147,39 @@ class mediaca_crossposting extends CModule
 
         $this->DoUninstallDB();
         $this->doUninstallFiles();
+        $this->unRegisterEventsHandlers();
+        CAgent::RemoveAgent('\\' . SenderAgent::class . '::run();', $this->MODULE_ID);
 
+        ModuleManager::unRegisterModule($this->MODULE_ID);
+    }
+
+    public function doUninstallFiles(): bool
+    {
+        foreach ($this->getFileDataList() as $fileData) {
+            unlink("{$this->bitrixDir}admin/{$fileData['saveName']}");
+        }
+
+        DeleteDirFilesEx("bitrix/css/$this->MODULE_ID");
+        DeleteDirFilesEx("bitrix/images/$this->MODULE_ID");
+
+        return true;
+    }
+
+    public function DoUninstallDB(): void
+    {
+        $file = $this->moduleDir . '/install/db/uninstall.sql';
+        if (!is_readable($file)) {
+            throw new \RangeException("File $file is not available for reading");
+        }
+
+        $errors = Application::getConnection()->executeSqlBatch(file_get_contents($file));
+        if ($errors) {
+            throw new \DomainException("SQL queries failed with errors: " . implode(', ', $errors));
+        }
+    }
+
+    private function unRegisterEventsHandlers(): void
+    {
         EventManager::getInstance()->unRegisterEventHandler(
             'main',
             'OnAdminIBlockElementEdit',
@@ -171,32 +209,5 @@ class mediaca_crossposting extends CModule
             '',
             '',
         );
-
-        ModuleManager::unRegisterModule($this->MODULE_ID);
-    }
-
-    public function doUninstallFiles(): bool
-    {
-        foreach ($this->getFileDataList() as $fileData) {
-            unlink("{$this->bitrixDir}admin/{$fileData['saveName']}");
-        }
-
-        DeleteDirFilesEx("bitrix/css/$this->MODULE_ID");
-        DeleteDirFilesEx("bitrix/images/$this->MODULE_ID");
-
-        return true;
-    }
-
-    public function DoUninstallDB(): void
-    {
-        $file = $this->moduleDir . '/install/db/uninstall.sql';
-        if (!is_readable($file)) {
-            throw new \RangeException("File $file is not available for reading");
-        }
-
-        $errors = Application::getConnection()->executeSqlBatch(file_get_contents($file));
-        if ($errors) {
-            throw new \DomainException("SQL queries failed with errors: " . implode(', ', $errors));
-        }
     }
 }

@@ -32,10 +32,7 @@ class TaskTable extends DataManager
                 'CHANNEL',
                 [
                     'required' => true,
-                    'values' => [
-                        'vk',
-                        'telegram',
-                    ],
+                    'values' => array_map(static fn($channel) => $channel->value, Channel::cases()),
                 ],
             ),
             new EnumField(
